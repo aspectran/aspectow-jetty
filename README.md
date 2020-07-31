@@ -1,23 +1,21 @@
-Aspectow Enterprise
+Aspectow Jetty
 ===================
 
 Aspectow is an all-in-one web application server based on Aspectran.  
-Aspectow Enterprise fully supports the servlet specification and is suitable for building enterprise web applications.
-JBoss's [Undertow](http://undertow.io) or Eclipse [Jetty](https://www.eclipse.org/jetty/) can be used as a web server.
-[Apache Jasper](https://mvnrepository.com/artifact/org.mortbay.jasper/apache-jsp) is used to support JSP and it is the same JSP engine that Apache Tomcat uses.
+Aspectow Jetty is a web application server that fully supports the Servlet 3.1 specification based on Aspectran 6 and Jetty 9.
 
 ## Running Aspectow
 
 - Clone this repository
 
   ```sh
-  $ git clone https://github.com/aspectran/aspectow-enterprise.git
+  $ git clone https://github.com/aspectran/aspectow-jetty.git
   ```
 
 - Build with Maven
 
   ```sh
-  $ cd aspectow-enterprise
+  $ cd aspectow-jetty
   $ mvn clean package
   ```
 

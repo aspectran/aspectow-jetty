@@ -23,7 +23,7 @@
     <name>Aspectow Jetty</name>
     <description>
         Aspectow Jetty is a web application server that fully supports
-        Servlet specifications based on Aspectran 6 and Jetty.
+        the Servlet 3.1 specification based on Aspectran 6 and Jetty 9.
     </description>
     <contributors>
         <contributor>
