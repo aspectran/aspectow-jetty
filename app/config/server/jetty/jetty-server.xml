@@ -37,20 +37,27 @@
         <properties>
             <item name="autoStart">%{jetty.startup}</item>
             <item name="connectors" type="array">
-                <value>#{jetty.connector}</value>
+                <bean class="org.eclipse.jetty.server.ServerConnector">
+                    <arguments>
+                        <item>#{jetty.server}</item>
+                    </arguments>
+                    <properties>
+                        <item name="port">%{jetty.server.port}</item>
+                        <item name="connectionFactories" type="list">
+                            <value>#{jetty.connectionFactory}</value>
+                        </item>
+                    </properties>
+                </bean>
             </item>
-            <item name="handler">#{jetty.mainHandler}</item>
-        </properties>
-    </bean>
-
-    <bean id="jetty.connector" class="org.eclipse.jetty.server.ServerConnector" scope="prototype">
-        <arguments>
-            <item>#{jetty.server}</item>
-        </arguments>
-        <properties>
-            <item name="port">%{jetty.server.port}</item>
-            <item name="connectionFactories" type="list">
-                <value>#{jetty.connectionFactory}</value>
+            <item name="handler">
+                <bean class="org.eclipse.jetty.server.handler.HandlerCollection">
+                    <properties>
+                        <item name="handlers" type="array">
+                            <value>#{jetty.gzipHandler}</value>
+                            <value>#{jetty.requestLogHandler}</value>
+                        </item>
+                    </properties>
+                </bean>
             </item>
         </properties>
     </bean>
@@ -67,15 +74,6 @@
                 </bean>
             </item>
         </arguments>
-    </bean>
-
-    <bean id="jetty.mainHandler" class="org.eclipse.jetty.server.handler.HandlerCollection" scope="prototype">
-        <properties>
-            <item name="handlers" type="array">
-                <value>#{jetty.gzipHandler}</value>
-                <value>#{jetty.requestLogHandler}</value>
-            </item>
-        </properties>
     </bean>
 
     <bean id="jetty.gzipHandler" class="org.eclipse.jetty.server.handler.gzip.GzipHandler" scope="prototype">
@@ -99,9 +97,9 @@
                             <bean class="com.aspectran.jetty.JettyWebAppContext">
                                 <properties>
                                     <item name="contextPath">/</item>
-                                    <item name="war">#{basePath}/webapps/root</item>
+                                    <item name="war">#{basePath}/webroot</item>
                                     <item name="persistTempDirectory" valueType="boolean">true</item>
-                                    <item name="defaultsDescriptor">#{basePath}/config/server/webdefault.xml</item>
+                                    <item name="defaultsDescriptor">#{basePath}/config/server/jetty/webdefault.xml</item>
                                     <item name="sessionHandler">#{jetty.sessionHandler}</item>
                                     <item name="webSocketEnabled" valueType="boolean">true</item>
                                     <item name="derived" valueType="boolean">true</item>
