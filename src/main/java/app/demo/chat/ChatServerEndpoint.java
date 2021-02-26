@@ -63,7 +63,7 @@ public class ChatServerEndpoint extends InstantActivitySupport {
     private static final Map<String, Session> sessions = new ConcurrentHashMap<>();
 
     @OnOpen
-    public void onOpen(Session session, EndpointConfig config) throws IOException {
+    public void onOpen(Session session) {
         if (logger.isDebugEnabled()) {
             logger.debug("WebSocket connection established with session: " + session.getId());
         }
@@ -105,6 +105,9 @@ public class ChatServerEndpoint extends InstantActivitySupport {
 
     @OnClose
     public void onClose(Session session, CloseReason reason) {
+        if (logger.isDebugEnabled()) {
+            logger.debug("Websocket session " + session.getId() + " has been closed. Reason: " + reason);
+        }
         String username = getUsername(session);
         if (username != null) {
             leaveUser(username);
@@ -115,7 +118,6 @@ public class ChatServerEndpoint extends InstantActivitySupport {
     public void onError(Session session, Throwable error) {
         logger.error("Error in websocket session: " + session.getId(), error);
         try {
-            sessions.remove(session);
             session.close(new CloseReason(CloseReason.CloseCodes.UNEXPECTED_CONDITION, null));
         } catch (IOException e) {
             throw new UncheckedIOException(e);
