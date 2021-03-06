@@ -94,22 +94,24 @@
                 <bean class="org.eclipse.jetty.server.handler.ContextHandlerCollection">
                     <properties>
                         <item name="handlers" type="array">
-                            <bean class="com.aspectran.jetty.JettyWebAppContext">
-                                <properties>
-                                    <item name="contextPath">/</item>
-                                    <item name="war">#{basePath}/webroot</item>
-                                    <item name="persistTempDirectory" valueType="boolean">true</item>
-                                    <item name="defaultsDescriptor">#{basePath}/config/server/jetty/webdefault.xml</item>
-                                    <item name="sessionHandler">#{jetty.sessionHandler}</item>
-                                    <item name="webSocketEnabled" valueType="boolean">true</item>
-                                    <item name="derived" valueType="boolean">true</item>
-                                </properties>
-                            </bean>
+                            <value>#{jetty.rootContext}</value>
                         </item>
                     </properties>
                 </bean>
                 <bean class="org.eclipse.jetty.server.handler.DefaultHandler"/>
             </item>
+        </properties>
+    </bean>
+
+    <bean id="jetty.rootContext" class="com.aspectran.jetty.JettyWebAppContext" scope="prototype">
+        <properties>
+            <item name="contextPath">/</item>
+            <item name="war">#{basePath}/webroot</item>
+            <item name="persistTempDirectory" valueType="boolean">true</item>
+            <item name="defaultsDescriptor">#{basePath}/config/server/jetty/webdefault.xml</item>
+            <item name="sessionHandler">#{jetty.sessionHandler}</item>
+            <item name="webSocketEnabled" valueType="boolean">true</item>
+            <item name="derived" valueType="boolean">true</item>
         </properties>
     </bean>
 

@@ -21,7 +21,7 @@ import com.aspectran.core.component.bean.annotation.Component;
 import com.aspectran.core.util.logging.Logger;
 import com.aspectran.core.util.logging.LoggerFactory;
 import com.aspectran.jetty.JettyServer;
-import com.aspectran.web.socket.jsr356.AspectranConfigurator;
+import com.aspectran.websocket.jsr356.AspectranConfigurator;
 import org.eclipse.jetty.server.session.DefaultSessionCache;
 import org.eclipse.jetty.server.session.SessionHandler;
 
