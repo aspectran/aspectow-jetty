@@ -1,5 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<link rel="stylesheet" href="/assets/css/apm.css?20200111">
+<script src="/assets/js/apm.js"></script>
 <div class="grid-x grid-padding-x">
     <div class="cell small-12 large-5 t20">
         <h3>Session Statistics</h3>
@@ -45,8 +47,6 @@
         </div>
     </div>
 </div>
-<link rel="stylesheet" href="/assets/css/apm.css?20200111">
-<script src="/assets/js/apm.js"></script>
 <script>
     $(function() {
         let sessionStats = new SessionStats("/apm/stats", 5);
