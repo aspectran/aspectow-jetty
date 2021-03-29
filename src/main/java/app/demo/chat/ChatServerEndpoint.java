@@ -40,6 +40,7 @@ import jakarta.websocket.server.ServerEndpoint;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
+import java.nio.channels.ClosedChannelException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -115,7 +116,9 @@ public class ChatServerEndpoint extends InstantActivitySupport {
 
     @OnError
     public void onError(Session session, Throwable error) {
-        logger.error("Error in websocket session: " + session.getId(), error);
+        if (!(error instanceof ClosedChannelException)) {
+            logger.warn("Error in websocket session: " + session.getId(), error);
+        }
         try {
             session.close(new CloseReason(CloseReason.CloseCodes.UNEXPECTED_CONDITION, null));
         } catch (IOException e) {
