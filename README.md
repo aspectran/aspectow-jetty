@@ -23,7 +23,7 @@ Aspectow Jetty is a web application server that fully supports the Servlet 3.1 s
 
   ```sh
   $ cd app/bin
-  $ ./jline-shell.sh
+  $ ./shell.sh
   ```
 
 - Access in your browser at http://localhost:8081
