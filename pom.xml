@@ -36,7 +36,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <aspectran.version>7.2.0-SNAPSHOT</aspectran.version>
+        <aspectran.version>7.2.1-SNAPSHOT</aspectran.version>
+        <slf4j.version>2.0.7</slf4j.version>
     </properties>
     <repositories>
         <repository>
@@ -65,7 +66,6 @@
                     <debug>true</debug>
                     <fork>true</fork>
                     <parameters>true</parameters>
-                    <optimize>true</optimize>
                     <showDeprecation>true</showDeprecation>
                     <showWarnings>true</showWarnings>
                     <excludes>
@@ -156,18 +156,18 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>2.0.6</version>
+            <version>${slf4j.version}</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>jcl-over-slf4j</artifactId>
-            <version>2.0.6</version>
+            <version>${slf4j.version}</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>log4j-over-slf4j</artifactId>
-            <version>2.0.6</version>
+            <version>${slf4j.version}</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
@@ -184,7 +184,7 @@
         <dependency>
             <groupId>org.mariadb.jdbc</groupId>
             <artifactId>mariadb-java-client</artifactId>
-            <version>3.0.8</version>
+            <version>3.1.2</version>
         </dependency>
         <dependency>
             <groupId>com.h2database</groupId>
