@@ -15,7 +15,10 @@
  */
 package app.demo;
 
+import app.demo.apm.log.LogtailEndpoint;
 import com.aspectran.core.util.ResourceUtils;
+import com.aspectran.core.util.logging.Logger;
+import com.aspectran.core.util.logging.LoggerFactory;
 import com.aspectran.shell.AspectranShell;
 import com.aspectran.shell.console.ShellConsole;
 import com.aspectran.shell.jline.console.JLineShellConsole;
@@ -30,12 +33,16 @@ import static com.aspectran.core.context.config.AspectranConfig.BASE_PATH_PROPER
  */
 public class AspectowJetty {
 
+    private static final Logger logger = LoggerFactory.getLogger(AspectowJetty.class);
+
     public static void main(String[] args) {
         try {
             File current = ResourceUtils.getResourceAsFile(".");
             File root = new File(current, "../../app");
             File aspectranConfigFile = new File(root, "config/aspectran-config.apon");
             System.setProperty(BASE_PATH_PROPERTY_NAME, root.getCanonicalPath()); // for logback
+            logger.info("aspectran.basePath: " + root.getCanonicalPath());
+            logger.info("aspectran.configuration: " + root.getCanonicalPath());
             ShellConsole console = new JLineShellConsole();
             AspectranShell.bootstrap(root.getCanonicalPath(), aspectranConfigFile, console);
         } catch (IOException e) {

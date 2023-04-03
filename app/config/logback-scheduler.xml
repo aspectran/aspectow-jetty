@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <included>
 
-    <appender name="SCHEDULER-LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <appender name="SCHEDULER-FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${aspectran.basePath}/logs/scheduler.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <fileNamePattern>${aspectran.basePath}/logs/archived/scheduler.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
@@ -16,7 +16,7 @@
     </appender>
 
     <logger name="com.aspectran.core.scheduler.service.JobActivityReport" level="debug" additivity="false">
-        <appender-ref ref="SCHEDULER-LOG"/>
+        <appender-ref ref="SCHEDULER-FILE"/>
     </logger>
 
 </included>
