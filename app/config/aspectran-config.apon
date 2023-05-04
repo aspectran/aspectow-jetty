@@ -9,7 +9,7 @@ context: {
         /config
     ]
     scan: [
-        app.demo
+        aspectow.jetty.demo
     ]
     profiles: {
         default: [
