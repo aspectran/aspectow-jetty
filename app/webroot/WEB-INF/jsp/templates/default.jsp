@@ -1,33 +1,43 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html class="no-js" lang="en">
 <head>
-    <meta charset="utf-8"/>
+    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
     <meta name="google" content="notranslate">
-    <title>${empty page.title ? "Aspectran Demo Site" : page.title}</title>
-    <meta name="description" content="${empty page.description ? "Welcome to Aspectran Demo" : page.description}"/>
-    <link rel="stylesheet" type="text/css" href="https://aspectran.com/assets/css/aspectran.css"/>
+    <title>${empty page.title ? "Aspectran Demo" : page.title}</title>
+    <meta name="description" content="${empty page.description ? "Welcome to the Aspectran Demo Site" : page.description}" />
+    <link rel="stylesheet" type="text/css" href="https://aspectran.com/assets/css/aspectran.css" />
     <link href="https://fonts.googleapis.com/css?family=Raleway:500,500i,700" rel="stylesheet">
     <script src="https://aspectran.com/assets/js/modernizr-custom.js"></script>
     <script src="https://aspectran.com/assets/js/jquery.min.js"></script>
-    <link rel="mask-icon" href="https://aspectran.com/assets/img/aspectran-logo.svg" color="#4B555A"/>
-    <link rel="apple-touch-icon" sizes="57x57" href="https://aspectran.com/assets/img/apple-icon-57x57.png"/>
-    <link rel="apple-touch-icon" sizes="60x60" href="https://aspectran.com/assets/img/apple-icon-60x60.png"/>
-    <link rel="apple-touch-icon" sizes="72x72" href="https://aspectran.com/assets/img/apple-icon-72x72.png"/>
-    <link rel="apple-touch-icon" sizes="76x76" href="https://aspectran.com/assets/img/apple-icon-76x76.png"/>
-    <link rel="apple-touch-icon" sizes="114x114" href="https://aspectran.com/assets/img/apple-icon-114x114.png"/>
-    <link rel="apple-touch-icon" sizes="120x120" href="https://aspectran.com/assets/img/apple-icon-120x120.png"/>
-    <link rel="apple-touch-icon" sizes="144x144" href="https://aspectran.com/assets/img/apple-icon-144x144.png"/>
-    <link rel="apple-touch-icon" sizes="152x152" href="https://aspectran.com/assets/img/apple-icon-152x152.png"/>
-    <link rel="apple-touch-icon" sizes="180x180" href="https://aspectran.com/assets/img/apple-icon-180x180.png"/>
-    <link rel="icon" type="image/png" sizes="192x192"  href="https://aspectran.com/assets/img/android-icon-192x192.png"/>
-    <link rel="icon" type="image/png" sizes="16x16" href="https://aspectran.com/assets/img/favicon-16x16.png"/>
-    <link rel="icon" type="image/png" sizes="32x32" href="https://aspectran.com/assets/img/favicon-32x32.png"/>
-    <link rel="icon" type="image/png" sizes="96x96" href="https://aspectran.com/assets/img/favicon-96x96.png"/>
-    <meta name="msapplication-TileImage" content="https://aspectran.com/assets/img/ms-icon-144x144.png"/>
-    <meta name="msapplication-TileColor" content="#4B555A"/>
+    <link rel="mask-icon" href="https://aspectran.com/assets/img/aspectran-logo.svg" color="#4B555A" />
+    <link rel="apple-touch-icon" sizes="57x57" href="https://aspectran.com/assets/img/apple-icon-57x57.png" />
+    <link rel="apple-touch-icon" sizes="60x60" href="https://aspectran.com/assets/img/apple-icon-60x60.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="https://aspectran.com/assets/img/apple-icon-72x72.png" />
+    <link rel="apple-touch-icon" sizes="76x76" href="https://aspectran.com/assets/img/apple-icon-76x76.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="https://aspectran.com/assets/img/apple-icon-114x114.png" />
+    <link rel="apple-touch-icon" sizes="120x120" href="https://aspectran.com/assets/img/apple-icon-120x120.png" />
+    <link rel="apple-touch-icon" sizes="144x144" href="https://aspectran.com/assets/img/apple-icon-144x144.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="https://aspectran.com/assets/img/apple-icon-152x152.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="https://aspectran.com/assets/img/apple-icon-180x180.png" />
+    <link rel="icon" type="image/png" sizes="192x192"  href="https://aspectran.com/assets/img/android-icon-192x192.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="https://aspectran.com/assets/img/favicon-16x16.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="https://aspectran.com/assets/img/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="96x96" href="https://aspectran.com/assets/img/favicon-96x96.png" />
+    <meta name="msapplication-TileImage" content="https://aspectran.com/assets/img/ms-icon-144x144.png" />
+    <meta name="msapplication-TileColor" content="#4B555A" />
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-66807210-2', 'auto');
+        ga('set', 'anonymizeIp', true);
+        ga('send', 'pageview');
+    </script>
 </head>
 <body id="top-of-page" class="${page.style}" itemscope itemtype="http://schema.org/WebPage">
 <nav id="navigation" class="no-js">
@@ -52,21 +62,15 @@
             <div class="top-bar-left">
                 <ul class="dropdown menu" data-dropdown-menu>
                     <li>
-                        <a href="/examples/hello-world">Examples</a>
+                        <a>Examples</a>
                         <ul class="submenu menu vertical" data-submenu>
                             <li><a href="/examples/hello-world">Hello World</a></li>
                             <li><a href="/examples/gs-rest-service/">RESTful Web Service</a></li>
                             <li><a href="/examples/file-upload/">File Upload</a></li>
+                            <li><a href="/chat/">WebSocket Chat Demo</a></li>
+                            <li><a href="/interpreter/">Remote Command Shell</a></li>
+                            <li><a href="/skylark/">Skylark Terminal</a></li>
                         </ul>
-                    </li>
-                    <li>
-                        <a href="/terminal/">Terminal</a>
-                    </li>
-                    <li>
-                        <a href="/skylark/">Skylark</a>
-                    </li>
-                    <li>
-                        <a href="/chat/">Chat</a>
                     </li>
                     <li>
                         <a href="/apm/">APM</a>
@@ -74,6 +78,15 @@
                 </ul>
             </div>
             <div class="top-bar-right">
+                <ul class="dropdown menu" data-dropdown-menu>
+                    <li>
+                        <a title="Demo Applications made with Aspectran">More Demo Apps</a>
+                        <ul class="submenu menu vertical" data-submenu>
+                            <li><a href="https://jpetstore.aspectran.com">JPetStore Demo</a></li>
+                            <li><a href="https://log-relay.aspectran.com">Log Relay</a></li>
+                        </ul>
+                    </li>
+                </ul>
                 <div class="quick-search-box">
                     <form name="google_quick_search">
                         <div class="input-group">
@@ -99,7 +112,7 @@
     </div>
 </nav>
 <section itemscope itemtype="http://schema.org/Article">
-    <div id="masthead">
+    <div id="masthead"<c:if test="${fn:contains(page.style, 'compact')}"> class="masthead-compact"</c:if>>
         <div class="grid-container ${page.style}">
             <div class="grid-x">
                 <div class="cell">

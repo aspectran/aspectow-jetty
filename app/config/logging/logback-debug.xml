@@ -5,6 +5,6 @@
     <include file="${aspectran.basePath}/config/logging/logback-console.xml"/>
 
     <logger name="com.aspectran.daemon.command.polling.DefaultFileCommander" level="trace"/>
-    <logger name="aspectow.jetty.demo" level="info"/>
+    <logger name="aspectow.demo" level="info"/>
 
 </configuration>
