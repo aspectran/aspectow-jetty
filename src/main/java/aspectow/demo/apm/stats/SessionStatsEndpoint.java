@@ -55,9 +55,9 @@ public class SessionStatsEndpoint extends InstantActivitySupport {
 
     private static final String COMMAND_LEAVE = "LEAVE";
 
-    private static final String HEARTBEAT_PING_MSG = "--heartbeat-ping--";
+    private static final String HEARTBEAT_PING_MSG = "--ping--";
 
-    private static final String HEARTBEAT_PONG_MSG = "--heartbeat-pong--";
+    private static final String HEARTBEAT_PONG_MSG = "--pong--";
 
     private static final Set<Session> sessions = Collections.synchronizedSet(new HashSet<>());
 
@@ -103,7 +103,7 @@ public class SessionStatsEndpoint extends InstantActivitySupport {
     @OnError
     public void onError(Session session, Throwable error) {
         if (!(error instanceof ClosedChannelException)) {
-            logger.warn("Error in websocket session: " + session.getId(), error);
+            logger.error("Error in websocket session: " + session.getId(), error);
         }
         try {
             removeSession(session);
