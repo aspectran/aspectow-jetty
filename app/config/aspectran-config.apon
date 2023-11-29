@@ -9,7 +9,7 @@ context: {
         /lib/ext
     ]
     scan: [
-        aspectow.demo
+        aspectow.jetty
     ]
     profiles: {
         default: [

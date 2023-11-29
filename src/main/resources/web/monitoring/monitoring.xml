@@ -17,11 +17,11 @@
         <dispatch name="templates/default"/>
     </translet>
 
-    <bean id="logTailerManager" class="aspectow.demo.monitoring.log.LogTailerManager">
+    <bean id="logTailerManager" class="aspectow.jetty.monitoring.log.LogTailerManager">
         <arguments>
-            <item>#{class:aspectow.demo.monitoring.log.LogtailEndpoint}</item>
+            <item>#{class:aspectow.jetty.monitoring.log.LogtailEndpoint}</item>
             <item type="array">
-                <bean class="aspectow.demo.monitoring.log.LogTailer">
+                <bean class="aspectow.jetty.monitoring.log.LogTailer">
                     <arguments>
                         <item>app-log</item>
                         <item>#{basePath}/logs/app.log</item>
