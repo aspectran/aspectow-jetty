@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package aspectow.demo;
+package aspectow.jetty;
 
 import com.aspectran.core.util.ResourceUtils;
 import com.aspectran.shell.jline.JLineAspectranShell;
