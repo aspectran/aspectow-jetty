@@ -22,8 +22,8 @@ import aspectow.jetty.chat.model.payload.BroadcastTextMessagePayload;
 import aspectow.jetty.chat.model.payload.DuplicatedUserPayload;
 import aspectow.jetty.chat.model.payload.SendTextMessagePayload;
 import aspectow.jetty.chat.model.payload.WelcomeUserPayload;
-import com.aspectran.core.util.apon.AbstractParameters;
-import com.aspectran.core.util.apon.ParameterKey;
+import com.aspectran.utils.apon.AbstractParameters;
+import com.aspectran.utils.apon.ParameterKey;
 
 /**
  * The Chat Message.
