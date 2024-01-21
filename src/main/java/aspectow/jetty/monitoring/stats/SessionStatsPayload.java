@@ -90,10 +90,9 @@ public class SessionStatsPayload {
         if (this == other) {
             return true;
         }
-        if (!(other instanceof SessionStatsPayload)) {
+        if (!(other instanceof SessionStatsPayload stats)) {
             return false;
         }
-        SessionStatsPayload stats = (SessionStatsPayload)other;
         if (stats.activeSessionCount != activeSessionCount ||
                 stats.highestSessionCount != highestSessionCount ||
                 stats.createdSessionCount != createdSessionCount ||
