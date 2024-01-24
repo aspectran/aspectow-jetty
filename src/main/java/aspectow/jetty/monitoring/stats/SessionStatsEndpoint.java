@@ -18,7 +18,6 @@ package aspectow.jetty.monitoring.stats;
 import com.aspectran.core.activity.InstantActivitySupport;
 import com.aspectran.core.component.bean.annotation.AvoidAdvice;
 import com.aspectran.core.component.bean.annotation.Component;
-import com.aspectran.jetty.JettyServer;
 import com.aspectran.utils.logging.Logger;
 import com.aspectran.utils.logging.LoggerFactory;
 import com.aspectran.websocket.jsr356.AspectranConfigurator;
@@ -29,8 +28,6 @@ import jakarta.websocket.OnMessage;
 import jakarta.websocket.OnOpen;
 import jakarta.websocket.Session;
 import jakarta.websocket.server.ServerEndpoint;
-import org.eclipse.jetty.server.session.DefaultSessionCache;
-import org.eclipse.jetty.server.session.SessionHandler;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
@@ -161,16 +158,17 @@ public class SessionStatsEndpoint extends InstantActivitySupport {
     }
 
     public SessionStatsPayload getSessionStatsPayload() {
-        JettyServer jettyServer = getBeanRegistry().getBean("jetty.server");
-        SessionHandler sessionHandler = jettyServer.getChildHandlerByClass(SessionHandler.class);
-        DefaultSessionCache sessionCache = (DefaultSessionCache)sessionHandler.getSessionCache();
-
-        SessionStatsPayload stats = new SessionStatsPayload();
-        stats.setActiveSessionCount(sessionCache.getSessionsCurrent());
-        stats.setHighestSessionCount(sessionCache.getSessionsMax());
-        stats.setCreatedSessionCount(sessionCache.getSessionsTotal());
-        stats.setExpiredSessionCount(sessionCache.getSessionsTotal() - sessionCache.getSessionsCurrent());
-        return stats;
+//        JettyServer jettyServer = getBeanRegistry().getBean("jetty.server");
+//        SessionHandler sessionHandler = jettyServer.getChildHandlerByClass(SessionHandler.class);
+//        DefaultSessionCache sessionCache = (DefaultSessionCache)sessionHandler.getSessionCache();
+//
+//        SessionStatsPayload stats = new SessionStatsPayload();
+//        stats.setActiveSessionCount(sessionCache.getSessionsCurrent());
+//        stats.setHighestSessionCount(sessionCache.getSessionsMax());
+//        stats.setCreatedSessionCount(sessionCache.getSessionsTotal());
+//        stats.setExpiredSessionCount(sessionCache.getSessionsTotal() - sessionCache.getSessionsCurrent());
+//        return stats;
+        return new SessionStatsPayload();
     }
 
 }
