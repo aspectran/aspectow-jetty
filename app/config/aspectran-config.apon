@@ -96,7 +96,7 @@ daemon: {
         incoming: /cmd/incoming
     }
     commands: [
-        com.aspectran.undertow.daemon.command.UndertowCommand
+        com.aspectran.jetty.daemon.command.JettyCommand
         com.aspectran.daemon.command.builtins.InvokeActionCommand
         com.aspectran.daemon.command.builtins.TransletCommand
         com.aspectran.daemon.command.builtins.ComponentCommand
