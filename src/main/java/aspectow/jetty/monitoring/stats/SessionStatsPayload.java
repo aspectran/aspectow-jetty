@@ -27,7 +27,7 @@ public class SessionStatsPayload {
 
     private long activeSessionCount;
 
-    private long highestSessionCount;
+    private long highestActiveSessionCount;
 
     private long createdSessionCount;
 
@@ -45,12 +45,12 @@ public class SessionStatsPayload {
         this.activeSessionCount = activeSessionCount;
     }
 
-    public long getHighestSessionCount() {
-        return highestSessionCount;
+    public long getHighestActiveSessionCount() {
+        return highestActiveSessionCount;
     }
 
-    public void setHighestSessionCount(long highestSessionCount) {
-        this.highestSessionCount = highestSessionCount;
+    public void setHighestActiveSessionCount(long highestActiveSessionCount) {
+        this.highestActiveSessionCount = highestActiveSessionCount;
     }
 
     public long getCreatedSessionCount() {
@@ -94,7 +94,7 @@ public class SessionStatsPayload {
             return false;
         }
         if (stats.activeSessionCount != activeSessionCount ||
-                stats.highestSessionCount != highestSessionCount ||
+                stats.highestActiveSessionCount != highestActiveSessionCount ||
                 stats.createdSessionCount != createdSessionCount ||
                 stats.expiredSessionCount != expiredSessionCount ||
                 stats.rejectedSessionCount != rejectedSessionCount) {

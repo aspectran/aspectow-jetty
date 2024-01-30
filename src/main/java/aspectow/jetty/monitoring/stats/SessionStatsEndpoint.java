@@ -18,6 +18,7 @@ package aspectow.jetty.monitoring.stats;
 import com.aspectran.core.activity.InstantActivitySupport;
 import com.aspectran.core.component.bean.annotation.AvoidAdvice;
 import com.aspectran.core.component.bean.annotation.Component;
+import com.aspectran.jetty.JettyServer;
 import com.aspectran.utils.logging.Logger;
 import com.aspectran.utils.logging.LoggerFactory;
 import com.aspectran.websocket.jsr356.AspectranConfigurator;
@@ -28,6 +29,8 @@ import jakarta.websocket.OnMessage;
 import jakarta.websocket.OnOpen;
 import jakarta.websocket.Session;
 import jakarta.websocket.server.ServerEndpoint;
+import org.eclipse.jetty.ee10.servlet.SessionHandler;
+import org.eclipse.jetty.session.DefaultSessionCache;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
@@ -132,7 +135,7 @@ public class SessionStatsEndpoint extends InstantActivitySupport {
                     @Override
                     public void run() {
                         SessionStatsPayload newStats = getSessionStatsPayload();
-                        if (first || !newStats.equals(oldStats)) {
+                        if (first || (newStats != null && !newStats.equals(oldStats))) {
                             try {
                                 broadcast(newStats.toJson());
                             } catch (IOException e) {
@@ -158,17 +161,17 @@ public class SessionStatsEndpoint extends InstantActivitySupport {
     }
 
     public SessionStatsPayload getSessionStatsPayload() {
-//        JettyServer jettyServer = getBeanRegistry().getBean("jetty.server");
-//        SessionHandler sessionHandler = jettyServer.getChildHandlerByClass(SessionHandler.class);
-//        DefaultSessionCache sessionCache = (DefaultSessionCache)sessionHandler.getSessionCache();
-//
-//        SessionStatsPayload stats = new SessionStatsPayload();
-//        stats.setActiveSessionCount(sessionCache.getSessionsCurrent());
-//        stats.setHighestSessionCount(sessionCache.getSessionsMax());
-//        stats.setCreatedSessionCount(sessionCache.getSessionsTotal());
-//        stats.setExpiredSessionCount(sessionCache.getSessionsTotal() - sessionCache.getSessionsCurrent());
-//        return stats;
-        return new SessionStatsPayload();
+        JettyServer jettyServer = getBeanRegistry().getBean("jetty.server");
+        SessionHandler sessionHandler = jettyServer.getSessionHandler("/");
+        if (sessionHandler != null && sessionHandler.getSessionCache() instanceof DefaultSessionCache sessionCache) {
+            SessionStatsPayload stats = new SessionStatsPayload();
+            stats.setActiveSessionCount(sessionCache.getSessionsCurrent());
+            stats.setHighestActiveSessionCount(sessionCache.getSessionsMax());
+            stats.setCreatedSessionCount(sessionCache.getSessionsTotal());
+            stats.setExpiredSessionCount(sessionCache.getSessionsTotal() - sessionCache.getSessionsCurrent());
+            return stats;
+        }
+        return null;
     }
 
 }
