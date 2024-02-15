@@ -4,7 +4,7 @@
 <aspectran>
 
     <description>
-        An Aspectran configuration for Embedded Jetty Server.
+        Aspectran configuration for setting up a Jetty server.
     </description>
 
     <environment>
@@ -22,7 +22,7 @@
         </properties>
     </environment>
 
-    <bean id="jetty.server" class="com.aspectran.jetty.JettyServer">
+    <bean id="jetty.server" class="com.aspectran.jetty.server.JettyServer">
         <arguments>
             <item name="threadPool">
                 <bean class="org.eclipse.jetty.util.thread.QueuedThreadPool">
@@ -49,7 +49,9 @@
         </properties>
     </bean>
 
-    <bean id="jetty.server.serverConnector" class="org.eclipse.jetty.server.ServerConnector" scope="prototype">
+    <bean id="jetty.server.serverConnector"
+          class="org.eclipse.jetty.server.ServerConnector"
+          scope="prototype">
         <arguments>
             <item>#{jetty.server}</item>
             <item type="array">
@@ -73,7 +75,9 @@
         </properties>
     </bean>
 
-    <bean id="jetty.server.mainHandler" class="org.eclipse.jetty.server.handler.StatisticsHandler" scope="prototype">
+    <bean id="jetty.server.mainHandler"
+          class="org.eclipse.jetty.server.handler.StatisticsHandler"
+          scope="prototype">
         <arguments>
             <item>
                 <bean class="org.eclipse.jetty.server.handler.gzip.GzipHandler">
@@ -100,7 +104,9 @@
         </arguments>
     </bean>
 
-    <bean id="jetty.server.requestLog" class="org.eclipse.jetty.server.CustomRequestLog" scope="prototype">
+    <bean id="jetty.server.requestLog"
+          class="org.eclipse.jetty.server.CustomRequestLog"
+          scope="prototype">
         <arguments>
             <item>
                 <bean class="org.eclipse.jetty.server.Slf4jRequestLogWriter">

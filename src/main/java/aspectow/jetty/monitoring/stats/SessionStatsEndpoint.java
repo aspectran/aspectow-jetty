@@ -18,7 +18,7 @@ package aspectow.jetty.monitoring.stats;
 import com.aspectran.core.activity.InstantActivitySupport;
 import com.aspectran.core.component.bean.annotation.AvoidAdvice;
 import com.aspectran.core.component.bean.annotation.Component;
-import com.aspectran.jetty.JettyServer;
+import com.aspectran.jetty.server.JettyServer;
 import com.aspectran.utils.logging.Logger;
 import com.aspectran.utils.logging.LoggerFactory;
 import com.aspectran.websocket.jsr356.AspectranConfigurator;
