@@ -16,19 +16,20 @@
 package aspectow.jetty.examples;
 
 import com.aspectran.core.activity.Translet;
+import com.aspectran.utils.ResourceUtils;
+import com.aspectran.utils.annotation.jsr305.NonNull;
 
+import java.io.IOException;
 import java.net.URL;
 
 public class SampleResource {
 
-    public String getResourceFile(Translet translet) {
+    public String getResourceFile(@NonNull Translet translet) {
         String resourceName = translet.getParameter("resourceName");
-        ClassLoader classLoader = translet.getApplicationAdapter().getClassLoader();
-        URL url = classLoader.getResource(resourceName);
-        if (url == null) {
+        try {
+            return ResourceUtils.getResource(resourceName).getFile();
+        } catch (IOException e) {
             return null;
-        } else {
-            return url.getFile();
         }
     }
 
