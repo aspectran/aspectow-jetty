@@ -27,9 +27,11 @@ import aspectow.jetty.chat.model.payload.SendTextMessagePayload;
 import aspectow.jetty.chat.model.payload.WelcomeUserPayload;
 import com.aspectran.core.activity.InstantActivitySupport;
 import com.aspectran.core.component.bean.annotation.Component;
+import com.aspectran.utils.annotation.jsr305.NonNull;
+import com.aspectran.utils.annotation.jsr305.Nullable;
 import com.aspectran.utils.logging.Logger;
 import com.aspectran.utils.logging.LoggerFactory;
-import com.aspectran.websocket.jsr356.AspectranConfigurator;
+import com.aspectran.web.websocket.jsr356.AspectranConfigurator;
 import jakarta.websocket.CloseReason;
 import jakarta.websocket.OnClose;
 import jakarta.websocket.OnError;
@@ -126,7 +128,8 @@ public class ChatServerEndpoint extends InstantActivitySupport {
         }
     }
 
-    private String getUsername(Session session) {
+    @Nullable
+    private String getUsername(@NonNull Session session) {
         if (session.getUserProperties().get("username") != null) {
             return session.getUserProperties().get("username").toString();
         } else {
@@ -134,17 +137,17 @@ public class ChatServerEndpoint extends InstantActivitySupport {
         }
     }
 
-    private void setUsername(Session session, String username) {
+    private void setUsername(@NonNull Session session, String username) {
         session.getUserProperties().put("username", username);
     }
 
-    private void welcomeUser(Session session, String username) {
+    private void welcomeUser(@NonNull Session session, String username) {
         WelcomeUserPayload payload = new WelcomeUserPayload();
         payload.setUsername(username);
         session.getAsyncRemote().sendObject(new ChatMessage(payload));
     }
 
-    private void duplicatedUser(Session session, String username) {
+    private void duplicatedUser(@NonNull Session session, String username) {
         DuplicatedUserPayload payload = new DuplicatedUserPayload();
         payload.setUsername(username);
         session.getAsyncRemote().sendObject(new ChatMessage(payload));
