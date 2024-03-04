@@ -31,6 +31,7 @@ import jakarta.websocket.Session;
 import jakarta.websocket.server.ServerEndpoint;
 import org.eclipse.jetty.ee10.servlet.SessionHandler;
 import org.eclipse.jetty.session.DefaultSessionCache;
+import org.eclipse.jetty.websocket.core.exception.WebSocketTimeoutException;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
@@ -102,8 +103,8 @@ public class SessionStatsEndpoint extends InstantActivitySupport {
 
     @OnError
     public void onError(Session session, Throwable error) {
-        if (!(error instanceof ClosedChannelException)) {
-            logger.error("Error in websocket session: " + session.getId(), error);
+        if (!(error instanceof ClosedChannelException || error instanceof WebSocketTimeoutException)) {
+            logger.warn("Error in websocket session: " + session.getId(), error);
         }
         try {
             removeSession(session);
