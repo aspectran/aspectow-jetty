@@ -25,33 +25,21 @@ import java.util.Arrays;
  */
 public class SessionStatsPayload {
 
-    private long activeSessionCount;
-
-    private long highestSessionCount;
-
     private long createdSessionCount;
 
     private long expiredSessionCount;
 
+    private long activeSessionCount;
+
+    private long highestActiveSessionCount;
+
+    private long evictedSessionCount;
+
     private long rejectedSessionCount;
 
+    private String elapsedTime;
+
     private String[] currentSessions;
-
-    public long getActiveSessionCount() {
-        return activeSessionCount;
-    }
-
-    public void setActiveSessionCount(long activeSessionCount) {
-        this.activeSessionCount = activeSessionCount;
-    }
-
-    public long getHighestSessionCount() {
-        return highestSessionCount;
-    }
-
-    public void setHighestSessionCount(long highestSessionCount) {
-        this.highestSessionCount = highestSessionCount;
-    }
 
     public long getCreatedSessionCount() {
         return createdSessionCount;
@@ -69,12 +57,44 @@ public class SessionStatsPayload {
         this.expiredSessionCount = expiredSessionCount;
     }
 
+    public long getEvictedSessionCount() {
+        return evictedSessionCount;
+    }
+
+    public long getActiveSessionCount() {
+        return activeSessionCount;
+    }
+
+    public void setActiveSessionCount(long activeSessionCount) {
+        this.activeSessionCount = activeSessionCount;
+    }
+
+    public void setEvictedSessionCount(long evictedSessionCount) {
+        this.evictedSessionCount = evictedSessionCount;
+    }
+
+    public long getHighestActiveSessionCount() {
+        return highestActiveSessionCount;
+    }
+
+    public void setHighestActiveSessionCount(long highestActiveSessionCount) {
+        this.highestActiveSessionCount = highestActiveSessionCount;
+    }
+
     public long getRejectedSessionCount() {
         return rejectedSessionCount;
     }
 
     public void setRejectedSessionCount(long rejectedSessionCount) {
         this.rejectedSessionCount = rejectedSessionCount;
+    }
+
+    public String getElapsedTime() {
+        return elapsedTime;
+    }
+
+    public void setElapsedTime(String elapsedTime) {
+        this.elapsedTime = elapsedTime;
     }
 
     public String[] getCurrentSessions() {
@@ -93,10 +113,11 @@ public class SessionStatsPayload {
         if (!(other instanceof SessionStatsPayload stats)) {
             return false;
         }
-        if (stats.activeSessionCount != activeSessionCount ||
-                stats.highestSessionCount != highestSessionCount ||
-                stats.createdSessionCount != createdSessionCount ||
+        if (stats.createdSessionCount != createdSessionCount ||
                 stats.expiredSessionCount != expiredSessionCount ||
+                stats.evictedSessionCount != evictedSessionCount ||
+                stats.activeSessionCount != activeSessionCount ||
+                stats.highestActiveSessionCount != highestActiveSessionCount ||
                 stats.rejectedSessionCount != rejectedSessionCount) {
             return false;
         }

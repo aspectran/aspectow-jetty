@@ -58,13 +58,15 @@ const SessionStats = function(endpoint, refreshInterval) {
 
     const printStats = function(stats) {
         $(".activeSessionCount").text(stats.activeSessionCount);
-        $(".highestSessionCount").text(stats.highestSessionCount);
+        $(".highestActiveSessionCount").text(stats.highestActiveSessionCount);
+        $(".evictedSessionCount").text(stats.evictedSessionCount);
         $(".createdSessionCount").text(stats.createdSessionCount);
         $(".expiredSessionCount").text(stats.expiredSessionCount);
         $(".rejectedSessionCount").text(stats.rejectedSessionCount);
+        $(".elapsed").text(stats.elapsedTime);
         if (stats.currentSessions) {
             $(".sessions").empty();
-            stats.currentSessions.forEach(function(username) {
+            stats.currentSessions.forEach(function (username) {
                 let status = $("<div/>").addClass("status");
                 if (username.indexOf("0:") === 0) {
                     status.addClass("logged-out")
