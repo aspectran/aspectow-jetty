@@ -65,8 +65,12 @@ public class CustomerActivity {
     @Description("Add a new customer to the repository.")
     public RestResponse addCustomer(Translet translet, @Required Customer customer) {
         int id = repository.insertCustomer(customer);
-        String resourceUri = translet.getRequestName() + "/" + id;
-        return new DefaultRestResponse(customer).created(resourceUri);
+        if (id == -1) {
+            return new DefaultRestResponse(customer).forbidden();
+        } else {
+            String resourceUri = translet.getRequestName() + "/" + id;
+            return new DefaultRestResponse(customer).created(resourceUri);
+        }
     }
 
     @RequestToPut("/customers/${id}")
