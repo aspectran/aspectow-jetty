@@ -19,7 +19,6 @@ import com.aspectran.core.activity.InstantActivitySupport;
 import com.aspectran.core.component.bean.annotation.AvoidAdvice;
 import com.aspectran.core.component.bean.annotation.Component;
 import com.aspectran.jetty.server.JettyServer;
-import com.aspectran.utils.annotation.jsr305.NonNull;
 import com.aspectran.utils.logging.Logger;
 import com.aspectran.utils.logging.LoggerFactory;
 import com.aspectran.web.websocket.jsr356.AspectranConfigurator;
@@ -30,12 +29,13 @@ import jakarta.websocket.OnMessage;
 import jakarta.websocket.OnOpen;
 import jakarta.websocket.Session;
 import jakarta.websocket.server.ServerEndpoint;
+import org.eclipse.jetty.ee10.servlet.SessionHandler;
 import org.eclipse.jetty.session.DefaultSessionCache;
+import org.eclipse.jetty.websocket.core.exception.WebSocketTimeoutException;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.nio.channels.ClosedChannelException;
-import java.time.Duration;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -103,8 +103,8 @@ public class SessionStatsEndpoint extends InstantActivitySupport {
 
     @OnError
     public void onError(Session session, Throwable error) {
-        if (!(error instanceof ClosedChannelException)) {
-            logger.error("Error in websocket session: " + session.getId(), error);
+        if (!(error instanceof ClosedChannelException || error instanceof WebSocketTimeoutException)) {
+            logger.warn("Error in websocket session: " + session.getId(), error);
         }
         try {
             removeSession(session);
@@ -135,8 +135,8 @@ public class SessionStatsEndpoint extends InstantActivitySupport {
 
                     @Override
                     public void run() {
-                        SessionStatsPayload newStats = getJettySessionStatsPayload();
-                        if (first || !newStats.equals(oldStats)) {
+                        SessionStatsPayload newStats = getSessionStatsPayload();
+                        if (first || (newStats != null && !newStats.equals(oldStats))) {
                             try {
                                 broadcast(newStats.toJson());
                             } catch (IOException e) {
@@ -161,28 +161,18 @@ public class SessionStatsEndpoint extends InstantActivitySupport {
         }
     }
 
-    public SessionStatsPayload getJettySessionStatsPayload() {
+    public SessionStatsPayload getSessionStatsPayload() {
         JettyServer jettyServer = getBeanRegistry().getBean("jetty.server");
-        org.eclipse.jetty.ee10.servlet.SessionHandler sessionHandler = jettyServer.getSessionHandler("/");
+        SessionHandler sessionHandler = jettyServer.getSessionHandler("/");
         if (sessionHandler != null && sessionHandler.getSessionCache() instanceof DefaultSessionCache sessionCache) {
             SessionStatsPayload stats = new SessionStatsPayload();
             stats.setActiveSessionCount(sessionCache.getSessionsCurrent());
             stats.setHighestActiveSessionCount(sessionCache.getSessionsMax());
             stats.setCreatedSessionCount(sessionCache.getSessionsTotal());
             stats.setExpiredSessionCount(sessionCache.getSessionsTotal() - sessionCache.getSessionsCurrent());
-            stats.setElapsedTime(formatDuration(jettyServer.getStatisticsHandler().getStatisticsDuration()));
             return stats;
         }
         return null;
-    }
-
-    private static String formatDuration(@NonNull Duration duration) {
-        long seconds = duration.getSeconds();
-        return String.format(
-                "%02d:%02d:%02d",
-                seconds / 3600,
-                (seconds % 3600) / 60,
-                seconds % 60);
     }
 
 }
