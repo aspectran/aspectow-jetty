@@ -20,7 +20,6 @@ import com.aspectran.utils.ResourceUtils;
 import com.aspectran.utils.annotation.jsr305.NonNull;
 
 import java.io.IOException;
-import java.net.URL;
 
 public class SampleResource {
 
