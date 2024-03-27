@@ -1,4 +1,4 @@
-package aspectow.jetty.common.dao;
+package aspectow.jetty.mybatis;
 
 import com.aspectran.core.component.bean.annotation.Bean;
 import com.aspectran.core.component.bean.annotation.Component;

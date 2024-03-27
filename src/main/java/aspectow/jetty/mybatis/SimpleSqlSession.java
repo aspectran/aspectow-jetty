@@ -1,15 +1,15 @@
-package aspectow.jetty.common.dao;
+package aspectow.jetty.mybatis;
 
 import com.aspectran.core.component.bean.annotation.Bean;
 import com.aspectran.core.component.bean.annotation.Component;
 import com.aspectran.mybatis.SqlSessionAgent;
 
 @Component
-@Bean("batchSqlSession")
-public class BatchSqlSession extends SqlSessionAgent {
+@Bean("simpleSqlSession")
+public class SimpleSqlSession extends SqlSessionAgent {
 
-    public BatchSqlSession() {
-        super("batchTxAspect");
+    public SimpleSqlSession() {
+        super("simpleTxAspect");
         setAutoParameters(true);
     }
 
