@@ -43,6 +43,7 @@
                 <dt>Rejected Sessions</dt>
                 <dd><span class="number rejectedSessionCount">0</span></dd>
             </dl>
+            <p class="text-right"><i>Elapsed <span class="elapsed"></span></i></p>
         </div>
     </div>
     <div class="cell small-12 large-7 t20">
