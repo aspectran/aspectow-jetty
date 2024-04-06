@@ -15,10 +15,6 @@
             <item name="jetty.server.minThreads" value="3" valueType="int"/>
             <item name="jetty.server.maxThreads" value="10" valueType="int"/>
             <item name="jetty.server.maxConnections" value="9999" valueType="int"/>
-            <item name="jetty.server.gzip.minGzipSize" value="20000" valueType="int"/>
-            <item name="jetty.server.gzip.syncFlush" value="false" valueType="boolean"/>
-            <item name="jetty.server.gzip.includedMethodList" value="GET"/>
-            <item name="jetty.server.gzip.excludedMethodList" value=""/>
         </properties>
     </environment>
 
@@ -93,12 +89,6 @@
                             </bean>
                         </item>
                     </arguments>
-                    <properties>
-                        <item name="minGzipSize" valueType="int">%{jetty.server.gzip.minGzipSize}</item>
-                        <item name="syncFlush" valueType="boolean">%{jetty.server.gzip.syncFlush}</item>
-                        <item name="includedMethodList">%{jetty.server.gzip.includedMethodList}</item>
-                        <item name="excludedMethodList">%{jetty.server.gzip.excludedMethodList}</item>
-                    </properties>
                 </bean>
             </item>
         </arguments>
