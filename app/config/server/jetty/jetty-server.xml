@@ -15,6 +15,7 @@
             <item name="jetty.server.minThreads" value="3" valueType="int"/>
             <item name="jetty.server.maxThreads" value="10" valueType="int"/>
             <item name="jetty.server.maxConnections" value="9999" valueType="int"/>
+            <item name="jetty.server.gzip.minGzipSize" value="32" valueType="int"/>
         </properties>
     </environment>
 
@@ -89,6 +90,9 @@
                             </bean>
                         </item>
                     </arguments>
+                    <properties>
+                        <item name="minGzipSize" valueType="int">%{jetty.server.gzip.minGzipSize}</item>
+                    </properties>
                 </bean>
             </item>
         </arguments>
