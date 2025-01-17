@@ -4,6 +4,7 @@ system: {
     }
 }
 context: {
+    name: root
     rules: /config/app-context.xml
     resources: [
         /lib/ext
