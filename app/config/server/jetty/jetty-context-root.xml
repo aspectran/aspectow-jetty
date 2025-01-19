@@ -23,8 +23,7 @@
           scope="prototype">
         <properties>
             <item name="contextPath">%{jetty.context.root.path}</item>
-<!--            <item name="war">%{jetty.context.root.baseDir}</item>-->
-            <item name="baseResourceAsString">%{jetty.context.root.baseDir}</item>
+            <item name="war">%{jetty.context.root.baseDir}</item>
             <item name="tempDirectory">%{jetty.context.root.scratchDir}</item>
             <item name="tempDirectoryPersistent" valueType="boolean">true</item>
             <item name="defaultsDescriptor">%{jetty.context.root.defaultsDescriptor}</item>
@@ -67,7 +66,7 @@
                     <properties>
                         <item name="tldResources" type="array">
                             <value>classpath:com/aspectran/web/support/tags/aspectran.tld</value>
-                            <value>/webapps/root/WEB-INF/taglibs/</value>
+                            <value>/webapps/%{jetty.context.root.name}/WEB-INF/taglibs/</value>
                         </item>
                     </properties>
                 </bean>
