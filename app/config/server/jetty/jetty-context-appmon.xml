@@ -10,6 +10,7 @@
     <environment>
         <properties>
             <item name="jetty.context.appmon.name">appmon</item>
+            <item name="jetty.context.appmon.config">classpath:com/aspectran/aspectow/appmon/context/aspectran-config.apon</item>
         </properties>
     </environment>
 
@@ -24,7 +25,7 @@
             <item name="defaultsDescriptor">/config/server/jetty/webdefault-ee10.xml</item>
             <item name="sessionHandler">#{jetty.context.appmon.sessionHandler}</item>
             <item name="initParams" type="map">
-                <entry name="aspectran:config" value="classpath:com/aspectran/aspectow/appmon/context/aspectran-config.apon"/>
+                <entry name="aspectran:config">%{jetty.context.appmon.config}</entry>
             </item>
             <item name="servlets" type="array">
                 <bean class="com.aspectran.jetty.server.servlet.JettyServlet">
