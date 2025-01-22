@@ -10,11 +10,6 @@
     <environment>
         <properties>
             <item name="jetty.context.appmon.name">appmon</item>
-            <item name="jetty.context.appmon.path">/appmon</item>
-            <item name="jetty.context.appmon.baseDir">#{basePath}/webapps/appmon</item>
-            <item name="jetty.context.appmon.scratchDir">#{basePath}/work/_webapps/appmon</item>
-            <item name="jetty.context.appmon.sessionStoreDir">#{basePath}/work/_sessions/appmon</item>
-            <item name="jetty.context.appmon.defaultsDescriptor">#{basePath}/config/server/jetty/webdefault-ee10.xml</item>
         </properties>
     </environment>
 
@@ -22,11 +17,11 @@
           class="com.aspectran.jetty.server.servlet.JettyWebAppContext"
           scope="prototype">
         <properties>
-            <item name="contextPath">%{jetty.context.appmon.path}</item>
-            <item name="war">%{jetty.context.appmon.baseDir}</item>
-            <item name="tempDirectory">%{jetty.context.appmon.scratchDir}</item>
+            <item name="contextPath">/%{jetty.context.appmon.name}</item>
+            <item name="war">/webapps/%{jetty.context.appmon.name}</item>
+            <item name="tempDirectory">/work/_webapps/%{jetty.context.appmon.name}</item>
             <item name="tempDirectoryPersistent" valueType="boolean">true</item>
-            <item name="defaultsDescriptor">%{jetty.context.appmon.defaultsDescriptor}</item>
+            <item name="defaultsDescriptor">/config/server/jetty/webdefault-ee10.xml</item>
             <item name="sessionHandler">#{jetty.context.appmon.sessionHandler}</item>
             <item name="initParams" type="map">
                 <entry name="aspectran:config" value="classpath:com/aspectran/aspectow/appmon/context/aspectran-config.apon"/>
@@ -89,9 +84,9 @@
           scope="prototype">
         <properties>
             <item name="sessionDataStore">
-                <bean class="org.eclipse.jetty.session.FileSessionDataStoreFactory">
+                <bean class="com.aspectran.jetty.server.session.JettyFileSessionDataStoreFactory">
                     <properties>
-                        <item name="storeDir" valueType="file">%{jetty.context.appmon.sessionStoreDir}</item>
+                        <item name="storeDir">/work/_sessions/%{jetty.context.appmon.name}</item>
                         <item name="deleteUnrestorableFiles" valueType="boolean">true</item>
                     </properties>
                 </bean>
