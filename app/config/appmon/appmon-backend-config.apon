@@ -14,8 +14,7 @@ group: {
     name: root
     title: Root
     event: {
-        name: request
-        reader: com.aspectran.aspectow.appmon.exporter.event.request.RequestEventReader
+        name: activity
         target: root
     }
     log: {
@@ -37,8 +36,7 @@ group: {
     name: appmon
     title: AppMon
     event: {
-        name: request
-        reader: com.aspectran.aspectow.appmon.exporter.event.request.RequestEventReader
+        name: activity
         target: appmon
     }
     log: {
