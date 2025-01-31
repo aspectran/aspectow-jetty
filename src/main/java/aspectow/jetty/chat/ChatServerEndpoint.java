@@ -27,6 +27,7 @@ import aspectow.jetty.chat.model.payload.SendTextMessagePayload;
 import aspectow.jetty.chat.model.payload.WelcomeUserPayload;
 import com.aspectran.core.activity.InstantActivitySupport;
 import com.aspectran.core.component.bean.annotation.Component;
+import com.aspectran.utils.ExceptionUtils;
 import com.aspectran.utils.annotation.jsr305.NonNull;
 import com.aspectran.utils.annotation.jsr305.Nullable;
 import com.aspectran.utils.logging.Logger;
@@ -45,6 +46,7 @@ import java.io.UncheckedIOException;
 import java.nio.channels.ClosedChannelException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.TimeoutException;
 
 /**
  * WebSocket endpoint for the chat server.
@@ -118,7 +120,7 @@ public class ChatServerEndpoint extends InstantActivitySupport {
 
     @OnError
     public void onError(Session session, Throwable error) {
-        if (!(error instanceof ClosedChannelException)) {
+        if (!ExceptionUtils.hasCause(error, ClosedChannelException.class, TimeoutException.class)) {
             logger.warn("Error in websocket session: " + session.getId(), error);
         }
         try {
