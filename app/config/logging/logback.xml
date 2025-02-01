@@ -5,6 +5,6 @@
     <include file="${aspectran.basePath:-app}/config/logging/included/logback-scheduler.xml"/>
     <include file="${aspectran.basePath:-app}/config/logging/included/logback-jetty.xml"/>
 
-    <logger name="aspectow.demo" level="debug"/>
+    <logger name="aspectow.jetty" level="debug"/>
 
 </configuration>
