@@ -9,7 +9,7 @@ endpoint: {
     title: Server-1
     url: /appmon/backend
 }
-group: {
+instance: {
     name: root
     title: Root
     event: {
@@ -31,7 +31,7 @@ group: {
         sampleInterval: 300
     }
 }
-group: {
+instance: {
     name: appmon
     title: AppMon
     event: {

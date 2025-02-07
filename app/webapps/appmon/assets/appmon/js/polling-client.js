@@ -1,71 +1,122 @@
-function PollingClient(endpoint, onEndpointJoined, onEstablishCompleted) {
-    this.start = function (joinGroups) {
-        join(joinGroups);
+function PollingClient(endpoint, viewer, onJoined, onEstablished) {
+
+    const MODE = "polling";
+    const MAX_RETRIES = 10;
+    const RETRY_INTERVAL = 5000;
+
+    let retryCount = 0;
+
+    this.start = function (joinInstances) {
+        join(joinInstances);
     };
 
     this.speed = function (speed) {
         changePollingInterval(speed);
     };
 
-    const join = function (joinGroups) {
+    const join = function (joinInstances) {
         $.ajax({
-            url: endpoint.basePath + "backend/endpoint/" + endpoint.token + "/join",
-            type: 'post',
+            url: endpoint.url + "/" + endpoint.token + "/polling/join",
+            type: "post",
             dataType: "json",
             data: {
-                joinGroups: joinGroups
+                joinInstances: joinInstances
             },
             success: function (data) {
                 if (data) {
-                    endpoint['mode'] = "polling";
+                    retryCount = 0;
+                    endpoint['mode'] = MODE;
                     endpoint['token'] = data.token;
                     endpoint['pollingInterval'] = data.pollingInterval;
-                    if (onEndpointJoined) {
-                        onEndpointJoined(endpoint, data);
+                    if (onJoined) {
+                        onJoined(endpoint, data);
                     }
-                    if (onEstablishCompleted) {
-                        onEstablishCompleted(endpoint);
+                    if (onEstablished) {
+                        onEstablished(endpoint);
                     }
-                    endpoint.viewer.printMessage("Polling every " + data.pollingInterval + " milliseconds.");
-                    polling();
+                    viewer.printMessage("Polling every " + data.pollingInterval + " milliseconds.");
+                    polling(joinInstances);
+                } else {
+                    console.log(endpoint.name, "connection failed");
+                    viewer.printErrorMessage("Connection failed.");
+                    rejoin(joinInstances);
                 }
+            },
+            error: function (xhr, status, error) {
+                console.log(endpoint.name, "connection failed", error);
+                viewer.printErrorMessage("Connection failed.");
+                rejoin(joinInstances);
             }
         });
     };
 
-    const polling = function () {
+    const rejoin = function (joinInstances) {
+        if (retryCount++ < MAX_RETRIES) {
+            let retryInterval = RETRY_INTERVAL * retryCount + random(1, 1000);
+            let status = "(" + retryCount + "/" + MAX_RETRIES + ", interval=" + retryInterval + ")";
+            console.log(endpoint.name, "reconnect", status);
+            viewer.printMessage("Trying to reconnect... " + status);
+            setTimeout(function () {
+                join(joinInstances);
+            }, retryInterval);
+        } else {
+            viewer.printMessage("Max connection attempts exceeded.");
+        }
+    };
+
+    const polling = function (joinInstances) {
         $.ajax({
-            url: endpoint.basePath + "backend/endpoint/" + endpoint.token + "/pull",
-            type: 'get',
+            url: endpoint.url + "/" + endpoint.token + "/polling/pull",
+            type: "get",
             success: function (data) {
                 if (data && data.token && data.messages) {
                     endpoint['token'] = data.token;
                     for (let key in data.messages) {
-                        endpoint.viewer.processMessage(data.messages[key]);
+                        viewer.processMessage(data.messages[key]);
                     }
-                    setTimeout(polling, endpoint.pollingInterval);
+                    setTimeout(function () {
+                        polling(joinInstances);
+                    }, endpoint.pollingInterval);
                 } else {
-                    endpoint.viewer.printErrorMessage("Connection lost. Please refresh this page to try again!");
+                    console.log(endpoint.name, "connection lost");
+                    viewer.printErrorMessage("Connection lost.");
+                    rejoin(joinInstances);
                 }
+            },
+            error: function (xhr, status, error) {
+                console.log(endpoint.name, "connection lost", error);
+                viewer.printErrorMessage("Connection lost.");
+                rejoin(joinInstances);
             }
         });
     };
 
     const changePollingInterval = function (speed) {
         $.ajax({
-            url: endpoint.basePath + "backend/endpoint/" + endpoint.token + "/pollingInterval",
-            type: 'post',
+            url: endpoint.url + "/" + endpoint.token + "/polling/interval",
+            type: "post",
             dataType: "json",
             data: {
                 speed: speed
             },
             success: function (data) {
-                console.log("pollingInterval", data);
-                if (data) {
-                    endpoint.pollingInterval = data;
-                    endpoint.viewer.printMessage("Polling every " + data + " milliseconds.");
+                if (data && data.pollingInterval) {
+                    endpoint.pollingInterval = data.pollingInterval;
+                    console.log(endpoint.name, "pollingInterval", data.pollingInterval);
+                    viewer.printMessage("Polling every " + data + " milliseconds.");
+                } else {
+                    console.log(endpoint.name, "failed to change polling interval");
+                    viewer.printMessage("Failed to change polling interval.");
                 }
+            },
+            error: function (xhr, status, error) {
+                console.log(endpoint.name, "failed to change polling interval", error);
+                viewer.printMessage("Failed to change polling interval.");
             }
         });
+    };
+
+    const random = function(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
     };
 }
