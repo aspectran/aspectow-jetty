@@ -5,14 +5,14 @@ function FrontBuilder() {
     const viewers = [];
     const clients = [];
 
-    this.build = function (basePath, token, endpointName, joinInstances) {
+    this.build = function (basePath, token, specificInstances) {
         clearView();
         $.ajax({
             url: basePath + "/backend/" + token + "/config",
             type: "get",
             dataType: "json",
             data: {
-                joinInstances: joinInstances
+                instances: specificInstances
             },
             success: function (data) {
                 if (data) {
@@ -21,39 +21,42 @@ function FrontBuilder() {
                     viewers.length = 0;
                     clients.length = 0;
                     let index = 0;
+                    let random1000 = random(1, 1000);
                     for (let key in data.endpoints) {
                         let endpoint = data.endpoints[key];
-                        endpoint['index'] = index;
+                        endpoint['index'] = index++;
                         endpoint['token'] = data.token;
-                        if (!endpointName || endpointName === endpoint.name) {
-                            endpoint.active = true;
-                            endpoints.push(endpoint);
-                            viewers[index] = new FrontViewer();
-                        }
-                        index++;
+                        endpoint['established'] = false;
+                        endpoint['establishCount'] = 0;
+                        endpoint['random1000'] = random1000;
+                        endpoint['active'] = true;
+                        endpoints.push(endpoint);
+                        viewers[endpoint.index] = new FrontViewer();
                         console.log("endpoint", endpoint);
                     }
                     for (let key in data.instances) {
                         let instance = data.instances[key];
+                        instance['active'] = false;
                         instances.push(instance);
                         console.log("instance", instance);
                     }
                     buildView();
                     bindEvents();
                     if (endpoints.length) {
-                        establish(0, joinInstances);
+                        establish(0, specificInstances);
                     }
                 }
             }
         });
     };
 
-    const establish = function (endpointIndex, joinInstances) {
+    const random = function(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    };
+
+    const establish = function (endpointIndex, specificInstances) {
         function onJoined(endpoint, payload) {
-            if (endpoint.established) {
-                clearConsole(endpoint.index);
-                return;
-            }
+            clearConsole(endpoint.index);
             if (payload) {
                 for (let key in payload.messages) {
                     let msg = payload.messages[key];
@@ -62,44 +65,47 @@ function FrontBuilder() {
             }
         }
         function onEstablished(endpoint) {
-            if (endpoint.established) {
-                console.log(endpoint.name, "reconnection established");
-                return;
+            endpoint.established = true;
+            endpoint.establishCount++;
+            console.log(endpoint.name, "connection established", endpoint.establishCount);
+            changeEndpointState(endpoint);
+            if (endpoint.active) {
+                viewers[endpoint.index].setVisible(true);
             }
-            console.log(endpoint.name, "connection established");
-            endpoint['established'] = true;
-            if (endpoint.index < endpoints.length - 1) {
-                establish(endpoint.index + 1, joinInstances);
-            } else if (endpoint.index === endpoints.length - 1) {
+            if (endpoint.establishCount === 1) {
+                console.log(endpoint.name, "init view");
                 initView();
-                let instanceName = changeInstance();
-                if (instanceName && location.hash) {
-                    let instanceName2 = location.hash.substring(1);
-                    if (instanceName !== instanceName2) {
-                        changeInstance(instanceName2);
-                    }
-                }
             }
+            if (endpoint.establishCount + endpoint.index < endpoints.length) {
+                establish(endpoint.index + 1, specificInstances);
+            }
+        }
+        function onClosed(endpoint) {
+            endpoint.established = false;
+            changeEndpointState(endpoint);
         }
         function onFailed(endpoint) {
-            setTimeout(function () {
-                let client = new PollingClient(endpoint, viewers[endpoint.index], onJoined, onEstablished);
-                clients[endpoint.index] = client;
-                client.start(joinInstances);
-            }, (endpoint.index - 1) * 1000);
+            changeEndpointState(endpoint, true);
+            if (endpoint.mode !== "websocket") {
+                setTimeout(function () {
+                    let client = new PollingClient(endpoint, viewers[endpoint.index], onJoined, onEstablished);
+                    clients[endpoint.index] = client;
+                    client.start(specificInstances);
+                }, (endpoint.index - 1) * 1000);
+            }
         }
 
-        console.log("endpointIndex", endpointIndex);
+        console.log("establish", endpointIndex);
         let endpoint = endpoints[endpointIndex];
         let viewer = viewers[endpointIndex];
         let client;
         if (endpoint.mode === "polling") {
             client = new PollingClient(endpoint, viewer, onJoined, onEstablished);
         } else {
-            client = new WebsocketClient(endpoint, viewer, onJoined, onEstablished, onFailed);
+            client = new WebsocketClient(endpoint, viewer, onJoined, onEstablished, onClosed, onFailed);
         }
         clients[endpointIndex] = client;
-        client.start(joinInstances);
+        client.start(specificInstances);
     };
 
     const changeEndpoint = function (endpointIndex) {
@@ -113,30 +119,30 @@ function FrontBuilder() {
             for (let key in endpoints) {
                 if (!!endpoints[key].active) {
                     endpoints[key].active = false;
-                    viewEndpoint(endpoints[key]);
+                    showEndpoint(endpoints[key]);
                 }
             }
             endpoint.active = true;
-            viewEndpoint(endpoint);
+            showEndpoint(endpoint);
         } else if (activeTabs === 1 && endpoint.active) {
             for (let key in endpoints) {
                 if (endpoints[key].index !== endpoint.index) {
                     endpoints[key].active = true;
-                    viewEndpoint(endpoints[key]);
+                    showEndpoint(endpoints[key]);
                 }
             }
         } else if (activeTabs === 1 && !endpoint.active) {
             for (let key in endpoints) {
                 if (endpoints[key].index !== endpoint.index) {
                     endpoints[key].active = false;
-                    viewEndpoint(endpoints[key]);
+                    showEndpoint(endpoints[key]);
                 }
             }
             endpoint.active = true;
-            viewEndpoint(endpoint);
+            showEndpoint(endpoint);
         } else {
             endpoint.active = !!!endpoint.active;
-            viewEndpoint(endpoint);
+            showEndpoint(endpoint);
         }
         let activeEndpoints = 0;
         for (let key in endpoints) {
@@ -154,7 +160,7 @@ function FrontBuilder() {
         }
     };
 
-    const viewEndpoint = function (endpoint) {
+    const showEndpoint = function (endpoint) {
         if (endpoint.active) {
             for (let key in instances) {
                 let instance = instances[key];
@@ -177,6 +183,21 @@ function FrontBuilder() {
         }
     }
 
+    const changeEndpointState = function (endpoint, errorOccurred) {
+        let $titleTab = $(".endpoint.tabs .tabs-title[data-endpoint-index=" + endpoint.index + "]");
+        let $indicator = $titleTab.find(".indicator");
+        $indicator.removeClass($indicator.data("icon-connected") + " connected");
+        $indicator.removeClass($indicator.data("icon-disconnected") + " disconnected");
+        $indicator.removeClass($indicator.data("icon-error") + " error");
+        if (errorOccurred) {
+            $indicator.addClass($indicator.data("icon-error") + " error");
+        } else if (endpoint.established) {
+            $indicator.addClass($indicator.data("icon-connected") + " connected");
+        } else {
+            $indicator.addClass($indicator.data("icon-disconnected") + " disconnected");
+        }
+    }
+
     const changeInstance = function (instanceName) {
         let exists = false;
         for (let key in instances) {
@@ -187,7 +208,7 @@ function FrontBuilder() {
             let $tabTitle = $(".instance.tabs .tabs-title[data-instance-name=" + instance.name + "]");
             if (instance.name === instanceName) {
                 instance.active = true;
-                viewEndpointInstance(instanceName);
+                showEndpointInstance(instanceName);
                 if (!$tabTitle.hasClass("is-active")) {
                     $tabTitle.addClass("is-active");
                 }
@@ -204,15 +225,15 @@ function FrontBuilder() {
         }
     }
 
-    const viewEndpointInstance = function (instanceName) {
+    const showEndpointInstance = function (instanceName) {
         for (let key in endpoints) {
             let endpoint = endpoints[key];
             if (endpoint.active) {
-                $(".track-box.available[data-endpoint-index=" + endpoint.index + "] .bullet").remove();
-                $(".display-box.available[data-endpoint-index=" + endpoint.index + "][data-instance-name!=" + instanceName + "]").hide();
-                $(".display-box.available[data-endpoint-index=" + endpoint.index + "][data-instance-name=" + instanceName + "]").show();
-                $(".console-box.available[data-endpoint-index=" + endpoint.index + "][data-instance-name!=" + instanceName + "]").hide();
-                $(".console-box.available[data-endpoint-index=" + endpoint.index + "][data-instance-name=" + instanceName + "]").show().each(function () {
+                $(".track-box[data-endpoint-index=" + endpoint.index + "] .bullet").remove();
+                $(".display-box[data-endpoint-index=" + endpoint.index + "][data-instance-name!=" + instanceName + "]").hide();
+                $(".display-box[data-endpoint-index=" + endpoint.index + "][data-instance-name=" + instanceName + "]").show();
+                $(".console-box[data-endpoint-index=" + endpoint.index + "][data-instance-name!=" + instanceName + "]").hide();
+                $(".console-box[data-endpoint-index=" + endpoint.index + "][data-instance-name=" + instanceName + "]").show().each(function () {
                     let $console = $(this).find(".console");
                     if (!$console.data("pause")) {
                         viewers[endpoint.index].refreshConsole($console);
@@ -223,12 +244,6 @@ function FrontBuilder() {
     };
 
     const initView = function () {
-        for (let key in endpoints) {
-            let endpoint = endpoints[key];
-            if (endpoint.active) {
-                viewers[endpoint.index].setVisible(true);
-            }
-        }
         $("ul.speed-options").hide();
         let pollingMode = false;
         for (let key in endpoints) {
@@ -372,6 +387,13 @@ function FrontBuilder() {
                 }
             }
         }
+        let instanceName = changeInstance();
+        if (instanceName && location.hash) {
+            let instanceName2 = location.hash.substring(1);
+            if (instanceName !== instanceName2) {
+                changeInstance(instanceName2);
+            }
+        }
     };
 
     const addEndpointTab = function (endpointInfo) {
@@ -407,7 +429,7 @@ function FrontBuilder() {
             .attr("data-instance-name", instanceInfo.name)
         $newBox.find(".status-bar h4")
             .text(endpointInfo.title);
-        return $newBox.insertAfter($displayBox.last()).show();
+        return $newBox.insertAfter($displayBox.last());
     };
 
     const addTrackBox = function ($displayBox, endpointInfo, instanceInfo, eventInfo) {
@@ -439,6 +461,6 @@ function FrontBuilder() {
             .attr("data-log-name", logInfo.name);
         $newBox.find(".status-bar h4")
             .text(endpointInfo.title + " ›› " + logInfo.file);
-        return $newBox.insertAfter($consoleBox.last()).show();
+        return $newBox.insertAfter($consoleBox.last());
     };
 }
