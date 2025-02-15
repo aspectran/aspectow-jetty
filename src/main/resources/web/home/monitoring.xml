@@ -3,9 +3,9 @@
         "https://aspectran.com/dtd/aspectran-8.dtd">
 <aspectran>
 
-    <bean class="com.aspectran.appmon.config.BackendConfigResolver">
+    <bean class="com.aspectran.appmon.config.AppMonConfigResolver">
         <properties>
-            <item name="configLocation">/config/appmon/backend-config.apon</item>
+            <item name="configLocation">/config/appmon/appmon-config.apon</item>
         </properties>
     </bean>
 
