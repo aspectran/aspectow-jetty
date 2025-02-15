@@ -3,11 +3,13 @@ pollingConfig: {
     sessionTimeout: 10000
     initialBufferSize: 9999
 }
-endpoint: {
-    mode: auto
+domain: {
     name: endpoint-1
     title: Server-1
-    url: /appmon/backend
+    endpoint: {
+        mode: auto
+        url: /appmon/backend
+    }
 }
 instance: {
     name: root
@@ -15,6 +17,9 @@ instance: {
     event: {
         name: activity
         target: root
+        parameters: {
+            +: /**
+        }
     }
     log: {
         name: app
@@ -37,6 +42,9 @@ instance: {
     event: {
         name: activity
         target: appmon
+        parameters: {
+            +: /**
+        }
     }
     log: {
         name: appmon

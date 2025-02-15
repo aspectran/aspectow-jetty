@@ -72,19 +72,18 @@
                             <li><a href="/skylark/">Skylark Terminal</a></li>
                         </ul>
                     </li>
+                    <li>
+                        <a href="https://public.aspectran.com/" title="Sample applications built on Aspectran">More Sample Apps</a>
+                        <ul class="submenu menu vertical" data-submenu>
+                            <li><a href="https://jpetstore.aspectran.com">JPetStore Demo</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
             <div class="top-bar-right">
                 <ul class="dropdown menu" data-dropdown-menu>
                     <li>
                         <a href="/monitoring/">Monitoring</a>
-                    </li>
-                    <li>
-                        <a title="Demo Applications made with Aspectran">More Demo Apps</a>
-                        <ul class="submenu menu vertical" data-submenu>
-                            <li><a href="https://jpetstore.aspectran.com">JPetStore Demo</a></li>
-                            <li><a href="https://log-relay.aspectran.com">Log Relay</a></li>
-                        </ul>
                     </li>
                 </ul>
                 <div class="quick-search-box">
