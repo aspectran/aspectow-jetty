@@ -49,7 +49,7 @@ public class SimpleFileUploadActivity {
         synchronized (uploadedFiles) {
             uploadedFiles.put(uploadedFile.getKey(), uploadedFile);
             if (logger.isDebugEnabled()) {
-                logger.debug("Uploaded File " + uploadedFile);
+                logger.debug("Uploaded File {}", uploadedFile);
             }
 
             if (uploadedFiles.size() > this.maxFiles) {
@@ -59,7 +59,7 @@ public class SimpleFileUploadActivity {
                     if (it.hasNext()) {
                         UploadedFile removedFile = uploadedFiles.remove(it.next());
                         if (logger.isDebugEnabled()) {
-                            logger.debug("Remove Old File " + removedFile);
+                            logger.debug("Remove Old File {}", removedFile);
                         }
                     }
                 }
