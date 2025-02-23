@@ -13,9 +13,11 @@ context: {
         aspectow.jetty
     ]
     profiles: {
+        essential: [
+            h2
+        ]
         default: [
             dev
-            h2
         ]
     }
     autoReload: {
