@@ -33,14 +33,14 @@
         </settings>
     </aspect>
 
-    <append resource="web/home/main.xml"/>
-    <append resource="web/home/monitoring.xml"/>
-    <append resource="web/examples/hello-world.xml"/>
-    <append resource="web/examples/gs-rest-service.xml"/>
-    <append resource="web/examples/file-upload.xml"/>
-    <append resource="web/terminal/translet-interpreter.xml"/>
-    <append resource="web/terminal/terminal-commands.xml"/>
-    <append resource="web/skylark/skylark.xml"/>
-    <append resource="web/chat/chat.xml"/>
+    <append resource="aspectow/jetty/home/main.xml"/>
+    <append resource="aspectow/jetty/home/monitoring.xml"/>
+    <append resource="aspectow/jetty/examples/hello-world.xml"/>
+    <append resource="aspectow/jetty/examples/gs-rest-service.xml"/>
+    <append resource="aspectow/jetty/examples/file-upload.xml"/>
+    <append resource="aspectow/jetty/terminal/translet-interpreter.xml"/>
+    <append resource="aspectow/jetty/terminal/terminal-commands.xml"/>
+    <append resource="aspectow/jetty/skylark/skylark.xml"/>
+    <append resource="aspectow/jetty/chat/chat.xml"/>
 
 </aspectran>
