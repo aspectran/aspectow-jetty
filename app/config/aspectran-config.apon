@@ -13,7 +13,7 @@ context: {
         aspectow.jetty
     ]
     profiles: {
-        essential: [
+        base: [
             h2
         ]
         default: [
