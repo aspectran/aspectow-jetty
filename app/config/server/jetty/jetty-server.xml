@@ -75,17 +75,7 @@
             <item>
                 <bean class="org.eclipse.jetty.server.handler.gzip.GzipHandler">
                     <arguments>
-                        <item>
-                            <bean class="org.eclipse.jetty.server.handler.ContextHandlerCollection">
-                                <arguments>
-                                    <item valueType="boolean">false</item>
-                                    <item type="array">
-                                        <value>#{jetty.context.root.webAppContext}</value>
-                                        <value>#{jetty.context.appmon.webAppContext}</value>
-                                    </item>
-                                </arguments>
-                            </bean>
-                        </item>
+                        <item>#{jetty.server.handler.loggingGroupHandlerHandler}</item>
                     </arguments>
                     <properties>
                         <item name="minGzipSize" valueType="int">%{jetty.server.gzip.minGzipSize}</item>
@@ -93,6 +83,31 @@
                 </bean>
             </item>
         </arguments>
+    </bean>
+
+    <bean id="jetty.server.handler.loggingGroupHandlerHandler"
+          class="com.aspectran.jetty.server.handler.PathBasedLoggingGroupHandler"
+          scope="prototype">
+        <arguments>
+            <item>
+                <bean class="org.eclipse.jetty.server.handler.ContextHandlerCollection">
+                    <arguments>
+                        <item valueType="boolean">false</item>
+                        <item type="array">
+                            <value>#{jetty.context.root.webAppContext}</value>
+                            <value>#{jetty.context.appmon.webAppContext}</value>
+                        </item>
+                    </arguments>
+                </bean>
+            </item>
+        </arguments>
+        <properties>
+            <item name="pathPatternsByGroupName" type="map">
+                <entry name="appmon">
+                    +: /appmon/**
+                </entry>
+            </item>
+        </properties>
     </bean>
 
     <bean id="jetty.server.requestLog"
