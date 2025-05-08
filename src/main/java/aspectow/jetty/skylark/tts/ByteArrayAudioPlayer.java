@@ -31,9 +31,9 @@ import java.util.Vector;
  */
 public class ByteArrayAudioPlayer implements AudioPlayer {
 
-    private AudioFormat audioFormat;
+    private final Vector<ByteArrayInputStream> outputList;
 
-    private Vector<ByteArrayInputStream> outputList;
+    private AudioFormat audioFormat;
 
     private byte[] outputData;
 
