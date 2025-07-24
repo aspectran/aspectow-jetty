@@ -22,6 +22,14 @@ instance: {
             +: /**
         }
     }
+    metric: {
+        name: heap
+        title: Heap
+        description: Shows JVM Heap memory usage status
+        reader: com.aspectran.appmon.exporter.metric.jvm.HeapMemoryUsageReader
+        sampleInterval: 500
+        heading: true
+    }
     log: {
         name: app
         title: Root App
