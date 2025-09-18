@@ -26,7 +26,7 @@
     <link rel="icon" type="image/png" sizes="96x96" href="https://assets.aspectran.com/img/favicon-96x96.png"/>
     <meta name="msapplication-TileImage" content="https://assets.aspectran.com/img/ms-icon-144x144.png"/>
     <meta name="msapplication-TileColor" content="#4B555A"/>
-    <link rel="stylesheet" type="text/css" href="https://assets.aspectran.com/bootstrap@5.3.8/css/aspectran.css?20250917"/>
+    <link rel="stylesheet" type="text/css" href="https://assets.aspectran.com/bootstrap@5.3.8/css/aspectran.css?v=20250918"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,700;1,400&display=swap">
     <script src="https://assets.aspectran.com/js/modernizr-custom.js"></script>
     <script src="https://assets.aspectran.com/countries/countries.js"></script>
@@ -98,9 +98,6 @@
                 </c:if>
             </header>
         </c:if>
-        <c:if test="${not empty page.headinclude}">
-            <jsp:include page="/WEB-INF/jsp/${page.headinclude}.jsp"/>
-        </c:if>
         <c:if test="${not fn:contains(page.style, 'compact') and not empty page.headline}">
             <div class="hexagons">
                 <div class="hexagon hex1"></div>
@@ -111,6 +108,9 @@
             </div>
         </c:if>
         </div>
+        <c:if test="${not empty page.headinclude}">
+            <jsp:include page="/WEB-INF/jsp/${page.headinclude}.jsp"/>
+        </c:if>
         <c:if test="${not empty page.headimageinclude}">
             <jsp:include page="/WEB-INF/jsp/${page.headimageinclude}.jsp"/>
         </c:if>
@@ -144,7 +144,7 @@
                 </div>
                 <div class="col-md-4 col-lg-4">
                     <a href="https://aspectran.com/aspectran/"><h5>About Aspectran</h5></a>
-                    <p><a href="https://aspectran.com/aspectran/">Aspectran is a lightweight, high‑performance framework for building both simple shell applications and large enterprise web services on the JVM. </a></p>
+                    <p><a href="https://aspectran.com/aspectran/">Aspectran is a lightweight, high‑performance framework for building both simple shell applications and large enterprise web services on the JVM.</a></p>
                 </div>
                 <div class="col-sm-6 col-md-3 col-lg-3 offset-lg-1">
                     <h5>Get Involved</h5>
