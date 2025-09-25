@@ -25,7 +25,7 @@
     <name>Aspectow Jetty Edition</name>
     <description>
         Aspectow Jetty is a web application server that fully supports
-        the Servlet 6.0 specification based on Aspectran 8 and Jetty 12.
+        the Servlet 6.0 specification based on Aspectran 9 and Jetty 12.
     </description>
     <inceptionYear>2020</inceptionYear>
 

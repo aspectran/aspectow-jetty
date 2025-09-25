@@ -2,7 +2,7 @@ Aspectow Jetty
 ===================
 
 Aspectow is an all-in-one web application server based on Aspectran.  
-Aspectow Jetty is a web application server that fully supports the Servlet 6.0 specification based on Aspectran 8 and Jetty 12.
+Aspectow Jetty is a web application server that fully supports the Servlet 6.0 specification based on Aspectran 9 and Jetty 12.
 
 ## Running Aspectow
 
