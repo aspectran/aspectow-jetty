@@ -10,7 +10,6 @@ domain: {
         mode: auto
         url: /appmon/backend
     }
-    sampleInterval: 5
 }
 instance: {
     name: root
