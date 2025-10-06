@@ -26,7 +26,7 @@
     <link rel="icon" type="image/png" sizes="96x96" href="https://assets.aspectran.com/img/favicon-96x96.png"/>
     <meta name="msapplication-TileImage" content="https://assets.aspectran.com/img/ms-icon-144x144.png"/>
     <meta name="msapplication-TileColor" content="#4B555A"/>
-    <link rel="stylesheet" type="text/css" href="https://assets.aspectran.com/bootstrap@5.3.8/css/aspectran.css?v=20251005"/>
+    <link rel="stylesheet" type="text/css" href="https://assets.aspectran.com/bootstrap@5.3.8/css/aspectran.css?v=20251006"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,700;1,400&display=swap">
     <script src="https://assets.aspectran.com/countries/countries.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
@@ -57,8 +57,8 @@
             </button>
         </div>
     </div>
-    <div class="top-bar">
-        <div class="container collapse navbar-collapse" id="navbarSupportedContent">
+    <div class="top-bar collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="container d-lg-flex g-0 g-lg-4">
             <div class="top-bar-logo">
                 <div class="circle">
                     <a class="navbar-brand logo" href="<aspectran:url value="/"/>" title="Aspectran"><img src="https://assets.aspectran.com/img/aspectran-site-logo.png" alt="Aspectran"/></a>
