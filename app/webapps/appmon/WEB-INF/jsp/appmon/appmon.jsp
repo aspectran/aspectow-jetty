@@ -1,23 +1,14 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" session="false" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://aspectran.com/tags" prefix="aspectran" %>
-<link rel="stylesheet" href="<aspectran:token type='bean' expression='appmonAssets^url'/>/css/appmon.css?v=<aspectran:token type='bean' expression='appmonAssets^cacheBustingVersion'/>">
-<script src="<aspectran:token type='bean' expression='appmonAssets^url'/>/js/front-builder.js?v=<aspectran:token type='bean' expression='appmonAssets^cacheBustingVersion'/>"></script>
-<script src="<aspectran:token type='bean' expression='appmonAssets^url'/>/js/front-viewer.js?v=<aspectran:token type='bean' expression='appmonAssets^cacheBustingVersion'/>"></script>
-<script src="<aspectran:token type='bean' expression='appmonAssets^url'/>/js/websocket-client.js?v=<aspectran:token type='bean' expression='appmonAssets^cacheBustingVersion'/>"></script>
-<script src="<aspectran:token type='bean' expression='appmonAssets^url'/>/js/polling-client.js?v=<aspectran:token type='bean' expression='appmonAssets^cacheBustingVersion'/>"></script>
-<script>
-    if (typeof FrontBuilder === "undefined") {
-        document.write('<link rel="stylesheet" href="https://appmon-assets.aspectran.com/appmon/css/appmon.css?v=<aspectran:token type='bean' expression='appmonAssets^cacheBustingVersion'/>">');
-        document.write('<link rel="stylesheet" href="https://appmon-assets.aspectran.com/appmon/css/appmon-dark.css?v=<aspectran:token type='bean' expression='appmonAssets^cacheBustingVersion'/>">');
-        document.write('<script src="https://appmon-assets.aspectran.com/appmon/js/front-builder.js?v=<aspectran:token type='bean' expression='appmonAssets^cacheBustingVersion'/>">\x3C/script>');
-        document.write('<script src="https://appmon-assets.aspectran.com/appmon/js/front-viewer.js?v=<aspectran:token type='bean' expression='appmonAssets^cacheBustingVersion'/>">\x3C/script>');
-        document.write('<script src="https://appmon-assets.aspectran.com/appmon/js/websocket-client.js?v=<aspectran:token type='bean' expression='appmonAssets^cacheBustingVersion'/>">\x3C/script>');
-        document.write('<script src="https://appmon-assets.aspectran.com/appmon/js/polling-client.js?v=<aspectran:token type='bean' expression='appmonAssets^cacheBustingVersion'/>">\x3C/script>');
-    }
-</script>
-<div class="container">
-    <div class="row g-0">
+<link rel="stylesheet" href="https://appmon-assets.aspectran.com/appmon@2.1/css/appmon.css?v=<aspectran:token type='bean' expression='appmonAssets^cacheBustingVersion'/>">
+<link rel="stylesheet" href="https://appmon-assets.aspectran.com/appmon@2.1/css/appmon-dark.css?v=<aspectran:token type='bean' expression='appmonAssets^cacheBustingVersion'/>">
+<script src="https://appmon-assets.aspectran.com/appmon@2.1/js/front-builder.js?v=<aspectran:token type='bean' expression='appmonAssets^cacheBustingVersion'/>"></script>
+<script src="https://appmon-assets.aspectran.com/appmon@2.1/js/front-viewer.js?v=<aspectran:token type='bean' expression='appmonAssets^cacheBustingVersion'/>"></script>
+<script src="https://appmon-assets.aspectran.com/appmon@2.1/js/websocket-client.js?v=<aspectran:token type='bean' expression='appmonAssets^cacheBustingVersion'/>"></script>
+<script src="https://appmon-assets.aspectran.com/appmon@2.1/js/polling-client.js?v=<aspectran:token type='bean' expression='appmonAssets^cacheBustingVersion'/>"></script>
+<div class="container g-1">
+    <div class="row">
         <div class="domain metrics-bar">
             <div class="title">
                 <i class="bi bi-pc-display-horizontal"></i><span class="number"></span>
@@ -32,10 +23,10 @@
     </div>
     <ul class="instance tabs nav nav-tabs mt-3">
         <li class="tabs-title nav-item">
-            <a class="nav-link"><i class="bullet bi bi-modem"></i><span class="title">JPetStore</span> <i class="indicator bi bi-lightning-charge-fill"></i></a>
+            <a class="nav-link"><i class="bi bi-modem"></i> <span class="title">JPetStore</span> <i class="indicator bi bi-lightning-charge-fill"></i></a>
         </li>
         <li class="tabs-title nav-item available active">
-            <a class="nav-link"><i class="bullet bi bi-modem"></i><span class="title">PetClinic</span> <i class="indicator bi bi-lightning-charge-fill"></i></a>
+            <a class="nav-link"><i class="bi bi-modem"></i> <span class="title">PetClinic</span> <i class="indicator bi bi-lightning-charge-fill"></i></a>
         </li>
     </ul>
     <div class="control-bar">

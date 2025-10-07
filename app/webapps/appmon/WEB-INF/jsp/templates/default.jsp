@@ -6,6 +6,25 @@
 <html class="no-js" lang="en">
 <head>
     <meta charset="utf-8">
+    <script>
+        (() => {
+            const getStoredTheme = () => localStorage.getItem('theme');
+            const getPreferredTheme = () => {
+                const storedTheme = getStoredTheme();
+                if (storedTheme) {
+                    return storedTheme;
+                }
+                return 'auto';
+            };
+            const setTheme = theme => {
+                const newTheme = theme === 'auto'
+                    ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+                    : theme;
+                document.documentElement.setAttribute('data-bs-theme', newTheme);
+            };
+            setTheme(getPreferredTheme());
+        })();
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <meta name="google" content="notranslate">
     <title>${empty page.title ? "AppMon" : page.title}</title>
@@ -26,11 +45,10 @@
     <link rel="icon" type="image/png" sizes="96x96" href="https://assets.aspectran.com/img/favicon-96x96.png"/>
     <meta name="msapplication-TileImage" content="https://assets.aspectran.com/img/ms-icon-144x144.png"/>
     <meta name="msapplication-TileColor" content="#4B555A"/>
-    <link rel="stylesheet" type="text/css" href="https://assets.aspectran.com/bootstrap@5.3.8/css/aspectran.css?v=20251006"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,700;1,400&display=swap">
-    <script src="https://assets.aspectran.com/countries/countries.js"></script>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="https://assets.aspectran.com/bootstrap@5.3.8/css/aspectran.css?v=20251006"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" integrity="sha256-pdY4ejLKO67E0CM2tbPtq1DJ3VGDVVdqAR6j3ZwdiE4=" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.0/dist/chart.umd.min.js" integrity="sha256-Lye89HGy1p3XhJT24hcvsoRw64Q4IOL5a7hdOflhjTA=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8/hammer.min.js" integrity="sha256-eVNjHw5UeU0jUqPPpZHAkU1z4U+QFBBY488WvueTm88=" crossorigin="anonymous"></script>
@@ -41,12 +59,20 @@
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.18/plugin/localizedFormat.js"></script>
     <script>dayjs.extend(window.dayjs_plugin_utc)</script>
     <script>dayjs.extend(window.dayjs_plugin_localizedFormat)</script>
+    <script src="https://assets.aspectran.com/js/navigation.js?v=20250923"></script>
+    <script src="https://assets.aspectran.com/js/theme-toggler.js?v=20251005"></script>
+    <script src="https://assets.aspectran.com/countries/countries.js"></script>
 </head>
 <body id="top-of-page" class="${page.style}" itemscope itemtype="https://schema.org/WebPage">
 <nav id="navigation" class="navbar navbar-expand-lg" data-bs-theme="dark">
     <div class="title-bar">
         <div class="title-bar-left">
-            <a class="logo" href="<aspectran:url value="/"/>" title="Aspectran"><img src="https://assets.aspectran.com/img/aspectran-site-logo.png" alt="Aspectran"/></a>
+            <aspectran:profile expression="prod">
+                <a class="logo" href="https://public.aspectran.com/" title="Aspectran"><img src="https://assets.aspectran.com/img/aspectran-site-logo.png" alt="Aspectran"/></a>
+            </aspectran:profile>
+            <aspectran:profile expression="!prod">
+                <a class="logo" href="<aspectran:url value="/../"/>" title="Aspectran"><img src="https://assets.aspectran.com/img/aspectran-site-logo.png" alt="Aspectran"/></a>
+            </aspectran:profile>
         </div>
         <div class="title-bar-center">
             <a href="#top-of-page">AppMon</a>
@@ -61,7 +87,12 @@
         <div class="container d-lg-flex g-0 g-lg-4">
             <div class="top-bar-logo">
                 <div class="circle">
-                    <a class="navbar-brand logo" href="<aspectran:url value="/"/>" title="Aspectran"><img src="https://assets.aspectran.com/img/aspectran-site-logo.png" alt="Aspectran"/></a>
+                    <aspectran:profile expression="prod">
+                        <a class="navbar-brand logo" href="https://public.aspectran.com/" title="Aspectran"><img src="https://assets.aspectran.com/img/aspectran-site-logo.png" alt="Aspectran"/></a>
+                    </aspectran:profile>
+                    <aspectran:profile expression="!prod">
+                        <a class="navbar-brand logo" href="<aspectran:url value="/../"/>" title="Aspectran"><img src="https://assets.aspectran.com/img/aspectran-site-logo.png" alt="Aspectran"/></a>
+                    </aspectran:profile>
                 </div>
             </div>
             <div class="top-bar-left me-auto">
@@ -71,19 +102,49 @@
                     </li>
                 </ul>
             </div>
-            <div class="top-bar-right">
+            <div class="top-bar-right d-lg-flex align-items-center gap-3">
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link" href="https://github.com/aspectran/aspectow-appmon" title="Get Involved">v${page.version}</a>
                     </li>
                 </ul>
+                <div class="settings d-flex align-items-center justify-content-end gap-2 m-2 mx-md-3 m-lg-0">
+                    <div class="theme-toggler dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button" id="theme-toggler-btn" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Toggle theme">
+                            <i class="bi theme-icon-active"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="theme-toggler-btn">
+                            <li>
+                                <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="light">
+                                    <i class="bi bi-sun-fill me-2 opacity-50"></i>
+                                    Light
+                                    <i class="bi bi-check2 ms-auto d-none"></i>
+                                </button>
+                            </li>
+                            <li>
+                                <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark">
+                                    <i class="bi bi-moon-stars-fill me-2 opacity-50"></i>
+                                    Dark
+                                    <i class="bi bi-check2 ms-auto d-none"></i>
+                                </button>
+                            </li>
+                            <li>
+                                <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="auto">
+                                    <i class="bi bi-circle-half me-2 opacity-50"></i>
+                                    Auto
+                                    <i class="bi bi-check2 ms-auto d-none"></i>
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </nav>
 <section itemscope itemtype="https://schema.org/Article">
-    <div id="masthead" class="<c:if test="${fn:contains(page.style, 'compact')}">masthead-compact</c:if><c:if test="${not empty page.headimageinclude}">masthead-with-image</c:if>">
-        <div class="container ${page.style}">
+    <div id="masthead">
+        <div class="container">
         <c:if test="${not empty page.headline}">
             <header>
                 <c:if test="${not empty page.subheadline}">
@@ -102,6 +163,7 @@
                 <div class="hexagon hex1"></div>
                 <div class="hexagon hex2"></div>
                 <div class="hexagon hex3"></div>
+                <div class="hexagon hex4"></div>
                 <div class="hexagon hex5"></div>
                 <div class="hexagon hex6"></div>
             </div>
@@ -169,46 +231,6 @@
 </footer>
 <script>
     $(function () {
-        let $win = $(window);
-        let $nav = $("#navigation");
-        let navHeight = Math.abs($("#masthead").height() - $nav.height());
-        let lastScrollTop = 0;
-        let scrolled;
-        let navFixed;
-        $win.scroll(function () {
-            scrolled = true;
-        });
-        setInterval(function () {
-            if (scrolled) {
-                let scrollTop = $win.scrollTop();
-                if (Math.abs(lastScrollTop - scrollTop) <= 10) {
-                    return;
-                }
-                if (scrollTop <= navHeight) {
-                    if (navFixed) {
-                        $nav.removeClass("fixed");
-                        navFixed = false;
-                    }
-                } else if (scrollTop > lastScrollTop) {
-                    if (navFixed) {
-                        $nav.removeClass("fixed");
-                        navFixed = false;
-                    }
-                } else {
-                    if (!navFixed) {
-                        if ($nav.hasClass("immediate")) {
-                            $nav.removeClass("immediate")
-                        } else {
-                            $nav.addClass("fixed");
-                            $nav.hide().fadeIn(500);
-                            navFixed = true;
-                        }
-                    }
-                }
-                lastScrollTop = scrollTop;
-                scrolled = false;
-            }
-        }, 200);
         /* google search */
         $("form[name=google_quick_search]").submit(function (event) {
             window.open("https://www.google.com/search?q=" + this.keyword.value + "+site:https%3A%2F%2Faspectran.com");
@@ -232,7 +254,7 @@
         $('.external').attr('target','_blank');
     })
 </script>
-<<script>
+<script>
     $(function () {
         let links = $("#navbarSupportedContent .navbar-nav a[href='" + decodeURI(location.pathname) + "']").last();
         if (links.length > 0) {

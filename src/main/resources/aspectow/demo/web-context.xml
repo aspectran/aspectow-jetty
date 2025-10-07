@@ -5,17 +5,14 @@
 
     <description>
         Aspectran configuration to configure the web environment.
-        Note that names of translets that match the request URI always start with a forward slash (/).
     </description>
 
     <bean id="jspViewDispatcher" class="com.aspectran.web.support.view.JspViewDispatcher">
         <description>
             Register a JSP View Dispatcher.
         </description>
-        <properties>
-            <item name="prefix">/WEB-INF/jsp/</item>
-            <item name="suffix">.jsp</item>
-        </properties>
+        <property name="prefix">/WEB-INF/jsp/</property>
+        <property name="suffix">.jsp</property>
     </bean>
 
     <aspect id="webTransletSettings">
@@ -30,17 +27,11 @@
         <settings>
             <setting name="characterEncoding" value="utf-8"/>
             <setting name="viewDispatcher" value="jspViewDispatcher"/>
+            <setting name="proxyProtocolAware" value="true"/>
         </settings>
     </aspect>
 
-    <append resource="aspectow/jetty/home/main.xml"/>
-    <append resource="aspectow/jetty/home/monitoring.xml"/>
-    <append resource="aspectow/jetty/examples/hello-world.xml"/>
-    <append resource="aspectow/jetty/examples/gs-rest-service.xml"/>
-    <append resource="aspectow/jetty/examples/file-upload.xml"/>
-    <append resource="aspectow/jetty/terminal/translet-interpreter.xml"/>
-    <append resource="aspectow/jetty/terminal/terminal-commands.xml"/>
-    <append resource="aspectow/jetty/skylark/skylark.xml"/>
-    <append resource="aspectow/jetty/chat/chat.xml"/>
+    <append resource="aspectow/demo/home/main.xml"/>
+    <append resource="aspectow/demo/home/monitoring.xml"/>
 
 </aspectran>
