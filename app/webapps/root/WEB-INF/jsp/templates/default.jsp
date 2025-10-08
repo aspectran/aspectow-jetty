@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://aspectran.com/tags" prefix="aspectran" %>
 <!DOCTYPE html>
-<html class="no-js" lang="en">
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <script>
