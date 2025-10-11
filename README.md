@@ -15,7 +15,7 @@ This edition is ideal for developers who prefer the flexibility and performance 
 ## Requirements
 
 - Java 21 or later
-- Maven 3.6.3 or later
+- Maven 3.9.4 or later
 
 ## Building from Source
 
