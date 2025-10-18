@@ -22,6 +22,7 @@
         <property name="defaultsDescriptor">/config/server/jetty/webdefault-ee10.xml</property>
         <property name="sessionHandler">#{jetty.context.appmon.sessionHandler}</property>
         <property name="initParams" type="map">
+            <entry name="logbackDisableServletContainerInitializer" value="true"/>
             <entry name="aspectran:config">%{jetty.context.appmon.config}</entry>
         </property>
         <property name="servlets" type="array">
