@@ -20,9 +20,6 @@
         <property name="tempDirectoryPersistent" valueType="boolean">true</property>
         <property name="defaultsDescriptor">/config/server/jetty/webdefault-ee10.xml</property>
         <property name="sessionHandler">#{jetty.context.root.sessionHandler}</property>
-        <property name="initParams" type="map">
-            <entry name="logbackDisableServletContainerInitializer" value="true"/>
-        </property>
         <property name="servlets" type="array">
             <bean class="com.aspectran.jetty.server.servlet.DefaultJspServlet">
                 <property name="initOrder" valueType="int">1</property>
