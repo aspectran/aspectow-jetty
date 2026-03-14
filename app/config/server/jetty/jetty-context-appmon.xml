@@ -9,7 +9,7 @@
 
     <environment>
         <property name="jetty.context.appmon.name">appmon</property>
-        <property name="jetty.context.appmon.config">classpath:com/aspectran/appmon/context/aspectran-config.apon</property>
+        <property name="jetty.context.appmon.config">classpath:com/aspectran/appmon/config/aspectran-config.apon</property>
     </environment>
 
     <bean id="jetty.context.appmon.webAppContext"
