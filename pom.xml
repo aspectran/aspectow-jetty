@@ -58,7 +58,7 @@
         <maven.compiler.parameters>true</maven.compiler.parameters>
 
         <aspectran.version>9.4.5-SNAPSHOT</aspectran.version>
-        <aspectow.appmon.version>3.2.0</aspectow.appmon.version>
+        <aspectow.appmon.version>3.3.0-SNAPSHOT</aspectow.appmon.version>
     </properties>
 
     <repositories>
@@ -100,6 +100,16 @@
             <groupId>com.aspectran</groupId>
             <artifactId>aspectran-with-mybatis</artifactId>
             <version>${aspectran.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.aspectran</groupId>
+            <artifactId>aspectran-with-thymeleaf</artifactId>
+            <version>${aspectran.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>nz.net.ultraq.thymeleaf</groupId>
+            <artifactId>thymeleaf-layout-dialect</artifactId>
+            <version>4.0.1</version>
         </dependency>
         <dependency>
             <groupId>com.aspectran</groupId>
