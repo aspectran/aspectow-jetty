@@ -37,19 +37,21 @@
                 <property name="initOrder" valueType="int">2</property>
             </bean>
         </property>
-        <property name="servletContainerInitializers" type="array">
-            <bean class="com.aspectran.jetty.server.servlet.JettyJasperInitializer">
-                <property name="tldResources" type="array">
-                    <value>classpath:com/aspectran/web/support/tags/aspectran.tld</value>
-                    <value>/webapps/%{jetty.context.root.name}/WEB-INF/taglibs/</value>
-                </property>
-            </bean>
-        </property>
         <property name="webSocketServerContainerInitializer">
             <bean class="com.aspectran.jetty.server.servlet.JettyWebSocketServerContainerInitializer">
                 <property name="idleTimeout" valueType="long">60000</property>
             </bean>
         </property>
+        <properties profile="jsp">
+            <item name="servletContainerInitializers" type="array">
+                <bean class="com.aspectran.jetty.server.servlet.JettyJasperInitializer">
+                    <property name="tldResources" type="array">
+                        <value>classpath:com/aspectran/web/support/tags/aspectran.tld</value>
+                        <value>/webapps/%{tow.context.appmon.name}/WEB-INF/taglibs/</value>
+                    </property>
+                </bean>
+            </item>
+        </properties>
     </bean>
 
     <bean id="jetty.context.appmon.sessionHandler"
