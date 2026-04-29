@@ -7,26 +7,18 @@ pollingConfig: {
     # The initial capacity of the shared message buffer
     initialBufferSize: 9999
 }
-domain: {
-    name: endpoint-1
-    title: Server-1
-    endpoint: {
-        mode: auto
-        url: /appmon/backend
-    }
-}
 app: {
-    name: root
+    id: root
     title: Root
     event: {
-        name: activity
+        id: activity
         target: root
         parameters: {
             +: /**
         }
     }
     metric: {
-        name: heap
+        id: heap
         title: Heap
         description: Shows JVM Heap memory usage status
         reader: com.aspectran.aspectow.appmon.engine.exporter.metric.jvm.HeapMemoryUsageReader
@@ -34,14 +26,14 @@ app: {
         heading: true
     }
     log: {
-        name: app
+        id: app
         title: Root App
         file: /logs/root.log
         lastLines: 1000
         sampleInterval: 300
     }
     log: {
-        name: access
+        id: access
         title: Root Access
         file: /logs/root-access.log
         lastLines: 1000
@@ -49,24 +41,24 @@ app: {
     }
 }
 app: {
-    name: appmon
+    id: appmon
     title: AppMon
     event: {
-        name: activity
+        id: activity
         target: appmon
         parameters: {
             +: /**
         }
     }
     log: {
-        name: appmon
+        id: appmon
         title: AppMon
         file: /logs/appmon.log
         lastLines: 1000
         sampleInterval: 300
     }
     log: {
-        name: access
+        id: access
         title: AppMon Access
         file: /logs/appmon-access.log
         lastLines: 1000
