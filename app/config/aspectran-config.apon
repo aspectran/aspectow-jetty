@@ -15,6 +15,7 @@ context: {
         /config/app-description.xml
         /config/aspectran-rules.xml
         /config/server/server.xml
+        /config/appmon/node-rules.xml
         /config/appmon/appmon-rules.xml
     ]
     resources: [
