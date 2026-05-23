@@ -27,14 +27,14 @@ app: {
         id: app
         title: Root App
         file: /logs/root.log
-        lastLines: 1000
+        lastLines: 300
         sampleInterval: 300
     }
     log: {
         id: access
         title: Root Access
         file: /logs/root-access.log
-        lastLines: 1000
+        lastLines: 100
         sampleInterval: 300
     }
 }
@@ -52,14 +52,14 @@ app: {
         id: appmon
         title: AppMon
         file: /logs/appmon.log
-        lastLines: 1000
+        lastLines: 300
         sampleInterval: 300
     }
     log: {
         id: access
         title: AppMon Access
         file: /logs/appmon-access.log
-        lastLines: 1000
+        lastLines: 100
         sampleInterval: 300
     }
 }
