@@ -7,6 +7,11 @@ system: {
         # To change the encoding of the properties file,
         # modify the value below or pass it as a -D option when starting the JVM.
         aspectran.properties.encoding: UTF-8
+        # Sets the base active profiles for the console context.
+        # Specifies the default embedded database profile ('h2') and Web UI profile ('console.ui').
+        # Replace 'h2' with your target database profile (e.g., 'mariadb', 'mysql') for external RDBMS.
+        # To run in headless node mode without Web UI, omit 'console.ui'.
+        aspectran.profiles.base.console: h2,console.ui
     }
 }
 context: {
@@ -15,8 +20,6 @@ context: {
         /config/app-description.xml
         /config/aspectran-rules.xml
         /config/server/server.xml
-        /config/appmon/node-rules.xml
-        /config/appmon/appmon-rules.xml
     ]
     resources: [
         /lib/ext
@@ -26,7 +29,7 @@ context: {
     ]
     profiles: {
         base: [
-            h2
+            console.ui
         ]
         default: [
             dev
@@ -135,7 +138,5 @@ web: {
     legacyHeadHandling: true
     acceptable: {
         +: /**
-        -: /favicon.ico
-        -: /assets/**
     }
 }

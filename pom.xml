@@ -57,8 +57,8 @@
         <maven.compiler.release>21</maven.compiler.release>
         <maven.compiler.parameters>true</maven.compiler.parameters>
 
-        <aspectran.version>9.6.4</aspectran.version>
-        <aspectow.appmon.version>4.0.0</aspectow.appmon.version>
+        <aspectran.version>9.6.5-SNAPSHOT</aspectran.version>
+        <aspectow.version>4.0.1-SNAPSHOT</aspectow.version>
     </properties>
 
     <repositories>
@@ -111,10 +111,15 @@
             <artifactId>thymeleaf-layout-dialect</artifactId>
             <version>4.0.1</version>
         </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.aspectran</groupId>-->
+<!--            <artifactId>aspectow-appmon</artifactId>-->
+<!--            <version>${aspectow.version}</version>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>com.aspectran</groupId>
-            <artifactId>aspectow-appmon</artifactId>
-            <version>${aspectow.appmon.version}</version>
+            <artifactId>aspectow-console</artifactId>
+            <version>${aspectow.version}</version>
         </dependency>
         <dependency>
             <groupId>net.sf.sociaal</groupId>

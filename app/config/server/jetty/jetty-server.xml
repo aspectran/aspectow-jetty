@@ -71,13 +71,13 @@
                 <argument valueType="boolean">false</argument>
                 <argument type="array">
                     <value>#{jetty.context.root.webAppContext}</value>
-                    <value>#{jetty.context.appmon.webAppContext}</value>
+                    <value>#{jetty.context.console.webAppContext}</value>
                 </argument>
             </bean>
         </argument>
         <property name="pathPatternsByGroupName" type="map">
-            <entry name="appmon">
-                +: /appmon/**
+            <entry name="console">
+                +: /console/**
             </entry>
         </property>
     </bean>

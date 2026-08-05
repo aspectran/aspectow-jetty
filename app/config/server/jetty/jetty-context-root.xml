@@ -25,8 +25,8 @@
                 <property name="initOrder" valueType="int">1</property>
             </bean>
             <bean class="com.aspectran.jetty.server.servlet.JettyServlet">
-                    <argument>webActivityServlet</argument>
-                    <argument>com.aspectran.web.servlet.WebActivityServlet</argument>
+                <argument>webActivityServlet</argument>
+                <argument>com.aspectran.web.servlet.WebActivityServlet</argument>
                 <property name="mappings" type="array">
                     <value>/</value>
                 </property>

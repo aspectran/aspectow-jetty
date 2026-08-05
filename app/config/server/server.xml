@@ -5,6 +5,6 @@
 
     <append file="/config/server/jetty/jetty-server.xml"/>
     <append file="/config/server/jetty/jetty-context-root.xml"/>
-    <append file="/config/server/jetty/jetty-context-appmon.xml"/>
+    <append resource="com/aspectran/aspectow/console/config/rules/context/jetty-context-console.xml"/>
 
 </aspectran>
