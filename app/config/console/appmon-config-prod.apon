@@ -39,26 +39,28 @@ app: {
     }
 }
 app: {
-    id: appmon
-    title: AppMon
+    id: console
+    title: Console
+    #hidden: true
     event: {
         id: activity
-        target: appmon
+        target: console
         parameters: {
             +: /**
+            -: /nodes/**/polling/**  # Ignore polling requests
         }
     }
     log: {
-        id: appmon
-        title: AppMon
-        file: /logs/appmon.log
+        id: console
+        title: Console
+        file: /logs/console.log
         lastLines: 300
         sampleInterval: 300
     }
     log: {
         id: access
-        title: AppMon Access
-        file: /logs/appmon-access.log
+        title: Console Access
+        file: /logs/console-access.log
         lastLines: 100
         sampleInterval: 300
     }
